@@ -12,12 +12,16 @@ import com.google.appengine.api.datastore.Transaction;
 
 //Helper class for flight seats.
 public class Seat {
+	
+	public static Key getSeatKey(String FlightName, String SeatID){
+		return KeyFactory.createKey(FlightName, SeatID);
+	}
 
 	// Create a seat on a specific flight,
 	// @store = true, when you want to commit entity to the datastore
 	// = false, when you want to commit entity later, like in a batch operation
-	public static Entity CreateSeat(String SeatID, Key FlightKey, boolean store) {
-		Entity e = new Entity("Seat", SeatID, FlightKey);
+	public static Entity CreateSeat(String SeatID, String FlightName, boolean store) {
+		Entity e = new Entity(FlightName, SeatID);
 		e.setProperty("PersonSitting", null);
 
 		if (store) {
@@ -29,11 +33,11 @@ public class Seat {
 	}
 
 	// Frees specific seat(SeatID) on flight(FlightKey)
-	public static void FreeSeat(String SeatID, Key FlightKey) {
+	public static void FreeSeat(String SeatID, String FlightName) {
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 
 		try {
-			Entity e = ds.get(KeyFactory.createKey(FlightKey, "Seat", SeatID));
+			Entity e = ds.get(KeyFactory.createKey(FlightName, SeatID));
 
 			e.setProperty("PersonSitting", null);
 			ds.put(e);
@@ -50,15 +54,14 @@ public class Seat {
 	}
 
 	//Reserves a specific seat(SeatID) on a specific flight(FlightKey)
-	public static boolean ReserveSeat(Key FlightKey, String SeatID,
+	public static boolean ReserveSeat(String FlightName, String SeatID,
 			String FirstName, String LastName) throws EntityNotFoundException {
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 
 		Transaction tx = ds.beginTransaction();
 
 		try {
-			Entity e = ds.get(tx,
-					KeyFactory.createKey(FlightKey, "Seat", SeatID));
+			Entity e = ds.get(tx, Seat.getSeatKey(FlightName, SeatID));
 
 			if (e.getProperty("PersonSitting") != null)
 				return false;

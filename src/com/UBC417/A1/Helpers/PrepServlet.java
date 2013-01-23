@@ -21,25 +21,25 @@ import com.google.appengine.api.datastore.Entity;
 public class PrepServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-
+		final String FLIGHT_NAME = "F2491";
+		
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		List<Entity> l = new ArrayList<Entity>();
 
 		// Create Flight F2491
-		Entity e = Flight.CreateFlight("F2491", false);
+		Entity e = Flight.CreateFlight(FLIGHT_NAME, false);
 		// put flight into datastore
 		ds.put(e);
 
-		// Create seats for flight
+		// Create seats for flight. Separate entity for each seat, for sharding
 		for (int i = 1; i < 50; i++) {
 			for (int c = 'A'; c <= 'D'; c += 1) {
-				l.add(Seat.CreateSeat(String.format("%d%c", i, c), e.getKey(),
-						false));
+				Seat.CreateSeat(String.format("%d%c", i, c), FLIGHT_NAME, false);
 			}
 		}
 
-		// put all seats into datastore
-		ds.put(l);
+		// put all seats into datastore. 
+		//No longer needed, as we don't want the seats in the same entity
+		//ds.put(l); 
 
 		// redirect to prepDone.jsp
 		ServletContext sc = getServletContext();

@@ -9,6 +9,8 @@ import com.google.appengine.api.datastore.Transaction;
 
 //Flight Helper class, used to create and get flights from Google Datastore
 public class Flight {
+	public static final int NUM_SHARDS = 50;
+	
 	// Create a flight
 	// @store = true when you want to commit entity to datastore
 	// = false when you want to commit entity later, like in a batch operation.
