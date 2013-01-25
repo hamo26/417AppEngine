@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Transaction;
@@ -31,15 +32,6 @@ public class Flight {
 	public static Iterable<Entity> GetFlights() {
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 		Query qFlight = new Query("Flight");
-		List<Entity> flights = new ArrayList<Entity>();
-		for(Entity flight : ds.prepare(qFlight).asIterable()){
-			
-			Query qSeat = new Query(flight.getKey().getName());
-			for(Entity seat : ds.prepare(qSeat).asIterable()){
-				flight.setPropertiesFrom(new Entity("Seat", seat.getKey().getName(), flight.getKey()));
-			}
-			flights.add(flight);
-		}
-		return flights;
+		return ds.prepare(qFlight).asIterable();
 	}
 }

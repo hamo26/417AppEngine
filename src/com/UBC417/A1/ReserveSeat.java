@@ -33,13 +33,13 @@ public class ReserveSeat extends HttpServlet {
 
 		// Get parameters
 		String SeatID = req.getParameter("SeatID");
-		String FlightName = req.getParameter("FlightName");
+		String FlightKey = req.getParameter("FlightName");
 		String FirstName = req.getParameter("FirstName");
 		String LastName = req.getParameter("LastName");
 
 		String forwardTo = "/seatConfirmation.jsp";
 		try {
-			if (!Seat.ReserveSeat(FlightName, SeatID, FirstName, LastName)) {
+			if (!Seat.ReserveSeat(FlightKey, SeatID, FirstName, LastName)) {
 				// seat not reserved, show error page
 				forwardTo = "/ReserveSeatError.jsp";
 			}

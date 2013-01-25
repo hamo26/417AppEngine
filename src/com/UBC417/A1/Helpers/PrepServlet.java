@@ -16,6 +16,7 @@ import com.UBC417.A1.Data.Seat;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.KeyFactory;
 
 @SuppressWarnings("serial")
 public class PrepServlet extends HttpServlet {
@@ -33,7 +34,7 @@ public class PrepServlet extends HttpServlet {
 		// Create seats for flight. Separate entity for each seat, for sharding
 		for (int i = 1; i < 50; i++) {
 			for (int c = 'A'; c <= 'D'; c += 1) {
-				Seat.CreateSeat(String.format("%d%c", i, c), FLIGHT_NAME, false);
+				Seat.CreateSeat(String.format("%d%c", i, c), KeyFactory.keyToString(e.getKey()), true);
 			}
 		}
 
