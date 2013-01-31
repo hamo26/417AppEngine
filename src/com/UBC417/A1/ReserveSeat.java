@@ -10,12 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.UBC417.A1.Data.Seat;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 
 @SuppressWarnings("serial")
 public class ReserveSeat extends HttpServlet {
@@ -45,6 +40,8 @@ public class ReserveSeat extends HttpServlet {
 			}
 		} catch (EntityNotFoundException e) {
 			// seat not found, show error page
+			forwardTo = "/ReserveSeatError.jsp";
+		} catch	(Exception e) {
 			forwardTo = "/ReserveSeatError.jsp";
 		}
 

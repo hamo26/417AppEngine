@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.UBC417.A1.Data.Seat;
 import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 
 @SuppressWarnings("serial")
 public class TestSeatReservation extends HttpServlet {

@@ -1,5 +1,7 @@
 package com.UBC417.A1.Data;
 
+import java.util.ConcurrentModificationException;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -73,7 +75,11 @@ public class Seat {
 
 			return true;
 		} finally {
-			tx.commit();
+			try {
+				tx.commit();
+			} catch (ConcurrentModificationException e) {
+				ReserveSeat(FlightKey, SeatID, FirstName, LastName);
+			}
 		}
 	}
 }
