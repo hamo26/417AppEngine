@@ -21,22 +21,17 @@ public class SelectSeatServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
-		Set<String> flights = new HashSet<String>();
 		
 		for (int i = 1; i<5; i++) {
-			String formatedFlight = String.format("Flight%d", i);
-			String flight = req.getParameter(formatedFlight);
-			if (flight != "") {
-				flights.add(flight);
+			String formattedFlight = String.format("Flight%d", i);
+			String flight = req.getParameter(formattedFlight);
+			if (!flight.equals("")) {
+				Iterable<Entity> flightSeats = Seat.GetFreeSeats(flight);
+				String formattedFlightSeats = String.format("flight%dSeats", i);
+				req.setAttribute(formattedFlightSeats, flightSeats);
 			}
 		}
 		
-		req.setAttribute("flights", flights);
-		
-		for (String flight : flights) {
-			Iterable<Entity> flightSeats = Seat.GetFreeSeats(flight);
-			req.setAttribute(String.format("%sSeats", flight), flightSeats);
-		}
 		
 		//redirect to index.jsp
 		ServletContext sc = getServletContext();

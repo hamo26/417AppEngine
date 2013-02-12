@@ -30,7 +30,7 @@
 						<td><strong>Trip</strong></td>
 					</tr>
 					<tr>
-						<td>Flight1</td>
+						<td>Flight 1</td>
 						<td>
 							<select name="Flight1">
 								<option value="">Please select a flight.</option>
@@ -39,7 +39,7 @@
 							<%} %>
 							</select>
 						</td>
-						<td>Flight2</td>
+						<td>Flight 2</td>
 						<td>
 							<select name="Flight2">
 								<option value="">Please select a flight.</option>
@@ -48,7 +48,7 @@
 							<%} %>
 							</select>
 						</td>
-						<td>Flight3</td>
+						<td>Flight 3</td>
 						<td>
 							<select name="Flight3">
 								<option value="">Please select a flight.</option>
@@ -57,7 +57,7 @@
 							<%} %>
 							</select>
 						</td>
-						<td>Flight4</td>
+						<td>Flight 4</td>
 						<td>
 							<select name="Flight4">
 								<option value="">Please select a flight.</option>

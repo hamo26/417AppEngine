@@ -82,8 +82,53 @@ public class Seat {
 	public static boolean ReserveSeats(String Flight1, String Flight1Seat,
 			String Flight2, String Flight2Seat, String Flight3,
 			String Flight3Seat, String Flight4, String Flight4Seat,
-			String FirstName, String LastName) throws Exception {
-
-		throw new Exception("Not Implemented");
+			String FirstName, String LastName) throws EntityNotFoundException {
+		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+		TransactionOptions options = TransactionOptions.Builder.withXG(true);
+		for (int i = 0; i < 10; i++) {
+			Transaction tx = ds.beginTransaction(options);
+			try {
+				if(Flight1 != null && Flight1Seat != null){
+					Entity e1 = ds.get(tx, KeyFactory.createKey(Flight1, Flight1Seat));
+					if (e1.getProperty("PersonSitting") != null){
+						return false;
+					}
+					e1.setProperty("PersonSitting", FirstName + " " + LastName);
+					ds.put(tx, e1);
+				}
+				if(Flight2 != null && Flight2Seat != null){
+					Entity e2 = ds.get(tx, KeyFactory.createKey(Flight2, Flight2Seat));
+					if (e2.getProperty("PersonSitting") != null){
+						return false;
+					}
+					e2.setProperty("PersonSitting", FirstName + " " + LastName);
+					ds.put(tx, e2);
+				}
+				if(Flight3 != null && Flight3Seat != null){
+					Entity e3 = ds.get(tx, KeyFactory.createKey(Flight3, Flight3Seat));
+					if (e3.getProperty("PersonSitting") != null){
+						return false;
+					}
+					e3.setProperty("PersonSitting", FirstName + " " + LastName);
+					ds.put(tx, e3);
+				}
+				if(Flight4 != null && Flight4Seat != null){
+					Entity e4 = ds.get(tx, KeyFactory.createKey(Flight4, Flight4Seat));
+					if (e4.getProperty("PersonSitting") != null){
+						return false;
+					}
+					e4.setProperty("PersonSitting", FirstName + " " + LastName);
+					ds.put(tx, e4);
+				}
+				tx.commit();
+				return true;
+			} catch (ConcurrentModificationException e) {
+				// continue
+			} finally {
+				if (tx.isActive())
+					tx.rollback();
+			}
+		}
+		throw new ConcurrentModificationException();
 	}
 }
