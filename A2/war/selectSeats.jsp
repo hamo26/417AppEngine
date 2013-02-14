@@ -47,7 +47,10 @@
 						<td align="right">Last Name:</td>
 						<td align="left"><input type="text" name="LastName"/></td>
 					</tr>
-					
+					<tr>
+						<td align="right"></td>
+						<td align="left"><input type="checkbox" name="waitList">Add me to a waiting list if one or more seats are unavailable?</td>
+					</tr>
 					<% if(!request.getParameter("Flight1").equals("")){ %>
 						<tr>
 							<td>Flight 1: <%=request.getParameter("Flight1")%></td>

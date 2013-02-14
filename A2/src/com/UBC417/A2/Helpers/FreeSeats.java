@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.taskqueue.Queue;
@@ -49,7 +50,9 @@ public class FreeSeats extends HttpServlet {
 		ds.put(l);
 		
 		//create task to retry reservations from waiting list
-
+		Queue queue = QueueFactory.getDefaultQueue();
+	    queue.add(withUrl("/worker"));	
+		
 		// redirect to freeSeats.jsp
 		ServletContext sc = getServletContext();
 		RequestDispatcher rd = sc.getRequestDispatcher("/FreeSeats.jsp");
