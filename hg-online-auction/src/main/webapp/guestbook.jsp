@@ -20,11 +20,11 @@
 <body>
 
 <%
-    String hg-online-auctionName = request.getParameter("hg-online-auctionName");
-    if (hg-online-auctionName == null) {
-        hg-online-auctionName = "default";
+    String hgonlineauctionName = request.getParameter("hgonlineauctionName");
+    if (hgonlineauctionName == null) {
+        hgonlineauctionName = "default";
     }
-    pageContext.setAttribute("hg-online-auctionName", hg-online-auctionName);
+    pageContext.setAttribute("hgonlineauctionName", hgonlineauctionName);
     UserService userService = UserServiceFactory.getUserService();
     User user = userService.getCurrentUser();
     if (user != null) {
@@ -44,18 +44,18 @@
 
 <%
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Key hg-online-auctionKey = KeyFactory.createKey("Guestbook", hg-online-auctionName);
+    Key hgonlineauctionKey = KeyFactory.createKey("Guestbook", hgonlineauctionName);
     // Run an ancestor query to ensure we see the most up-to-date
     // view of the Greetings belonging to the selected Guestbook.
-    Query query = new Query("Greeting", hg-online-auctionKey).addSort("date", Query.SortDirection.DESCENDING);
+    Query query = new Query("Greeting", hgonlineauctionKey).addSort("date", Query.SortDirection.DESCENDING);
     List<Entity> greetings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
     if (greetings.isEmpty()) {
 %>
-<p>Guestbook '${fn:escapeXml(hg-online-auctionName)}' has no messages.</p>
+<p>Guestbook '${fn:escapeXml(hgonlineauctionName)}' has no messages.</p>
 <%
 } else {
 %>
-<p>Messages in Guestbook '${fn:escapeXml(hg-online-auctionName)}'.</p>
+<p>Messages in Guestbook '${fn:escapeXml(hgonlineauctionName)}'.</p>
 <%
     for (Entity greeting : greetings) {
         pageContext.setAttribute("greeting_content",
@@ -81,11 +81,11 @@
 <form action="/sign" method="post">
     <div><textarea name="content" rows="3" cols="60"></textarea></div>
     <div><input type="submit" value="Post Greeting"/></div>
-    <input type="hidden" name="hg-online-auctionName" value="${fn:escapeXml(hg-online-auctionName)}"/>
+    <input type="hidden" name="hgonlineauctionName" value="${fn:escapeXml(hgonlineauctionName)}"/>
 </form>
 
 <form action="/hg-online-auction.jsp" method="get">
-    <div><input type="text" name="hg-online-auctionName" value="${fn:escapeXml(hg-online-auctionName)}"/></div>
+    <div><input type="text" name="hgonlineauctionName" value="${fn:escapeXml(hgonlineauctionName)}"/></div>
     <div><input type="submit" value="Switch Guestbook"/></div>
 </form>
 

@@ -39,11 +39,11 @@ public class SignGuestbookServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     User user = userService.getCurrentUser();
 
-    String hgonlineauctionName = req.getParameter("hg-online-auctionName");
-    Key hgonlineauctionNameKey = KeyFactory.createKey("Guestbook", hgonlineauctionName);
+    String hgonlineauctionName = req.getParameter("hgonlineauctionName");
+    Key hgonlineauctionKey = KeyFactory.createKey("Guestbook", hgonlineauctionName);
     String content = req.getParameter("content");
     Date date = new Date();
-    Entity greeting = new Entity("Greeting", hgonlineauctionName);
+    Entity greeting = new Entity("Greeting", hgonlineauctionKey);
     greeting.setProperty("user", user);
     greeting.setProperty("date", date);
     greeting.setProperty("content", content);
@@ -51,6 +51,6 @@ public class SignGuestbookServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(greeting);
 
-    resp.sendRedirect("/hg-online-auction.jsp?hg-online-auctionName=" + hgonlineauctionName);
+    resp.sendRedirect("/guestbook.jsp?hgonlineauctionName=" + hgonlineauctionName);
   }
 }

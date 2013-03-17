@@ -70,7 +70,7 @@ public class SignGuestbookServletTest {
     String hgonlineauctionName = "TestGuestbook";
     String testContent = "Test Content";
 
-    when(request.getParameter("hg-online-auctionName")).thenReturn(hgonlineauctionName);
+    when(request.getParameter("hgonlineauctionName")).thenReturn(hgonlineauctionName);
     when(request.getParameter("content")).thenReturn(testContent);
 
     Date priorToRequest = new Date();
@@ -79,7 +79,7 @@ public class SignGuestbookServletTest {
 
     Date afterRequest = new Date();
 
-    verify(response).sendRedirect("/hg-online-auction.jsp?hg-online-auctionName=TestGuestbook");
+    verify(response).sendRedirect("/guestbook.jsp?hgonlineauctionName=TestGuestbook");
 
     User currentUser = UserServiceFactory.getUserService().getCurrentUser();
 
