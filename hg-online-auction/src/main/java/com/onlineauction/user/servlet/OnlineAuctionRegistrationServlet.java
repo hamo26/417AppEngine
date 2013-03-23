@@ -23,23 +23,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.onlineauction.user.domain.entity.User;
+import com.onlineauction.user.domain.entity.UserType;
+import com.onlineauction.user.domain.service.UserService;
 
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionRegistrationServlet extends HttpServlet {
-	private static final Logger log = Logger.getLogger(OnlineAuctionRegistrationServlet.class.getName());
-  @Override
-  public void doPost(HttpServletRequest req, HttpServletResponse resp)
-      throws IOException {
+	private static final Logger log = Logger
+			.getLogger(OnlineAuctionRegistrationServlet.class.getName());
 	
-    String userName = req.getParameter("userName");
-    String password = req.getParameter("password");
-    String firstName = req.getParameter("firstName");
-    String lastName = req.getParameter("lastName");
-    log.info("Hello: user: " + userName + " with password " + password + 
-    		"and First Name: " + firstName + "and Last Name: " + lastName);
-    
-    
-  }
+	@Inject
+	private UserService userService;
+	
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		String userName = req.getParameter("userName");
+		String password = req.getParameter("password");
+		String firstName = req.getParameter("firstName");
+		String lastName = req.getParameter("lastName");
+		String email = req.getParameter("email");
+		
+		User newUser = new User(userName, UserType.BUYER, firstName, lastName, password, email);
+		
+		userService.subscribeUser(newUser);
+		
+		log.info("Subscribed user with username: " + userName);
+	}
 }

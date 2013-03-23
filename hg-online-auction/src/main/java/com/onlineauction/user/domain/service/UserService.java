@@ -11,12 +11,12 @@ import com.onlineauction.user.domain.entity.User;
 public interface UserService {
 	
 	/**
-	 * Get a user given a user id.
+	 * Get a user given a user name.
 	 * 
-	 * @param userId the userId
+	 * @param userName the user name
 	 * @return a user
 	 */
-	User getUserByUserId(String userId); 
+	User getUserByUserName(String userName); 
 	
 	/**
 	 * Get a user by username and password.

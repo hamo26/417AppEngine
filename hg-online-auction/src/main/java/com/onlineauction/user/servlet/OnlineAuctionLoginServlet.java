@@ -23,21 +23,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.onlineauction.user.domain.entity.User;
+import com.onlineauction.user.domain.service.UserService;
 
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionLoginServlet extends HttpServlet {
-	private static final Logger log = Logger.getLogger(OnlineAuctionLoginServlet.class.getName());
-  @Override
-  public void doPost(HttpServletRequest req, HttpServletResponse resp)
-      throws IOException {
-	
-    String userName = req.getParameter("userName");
-    String password = req.getParameter("password");
-    
-    log.info("Hello: user: " + userName + " with password " + password);
-    
-    
-  }
+	private static final Logger log = Logger
+			.getLogger(OnlineAuctionLoginServlet.class.getName());
+
+	@Inject
+	private UserService userService;
+
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+
+		String userName = req.getParameter("userName");
+		String password = req.getParameter("password");
+		
+		User user = userService.getUserByUserNameAndPassword(userName, password);
+		
+		if (user == null) {
+			log.info("User with name: " + userName + " does not exist");
+			return;
+		}
+		log.info("Hello: user: " + user.getUserName() + " with password " + user.getPassword());
+
+	}
 }
