@@ -15,6 +15,6 @@
 		<listener-class>com.onlineauction.guice.GuiceServletConfig</listener-class>
 	</listener>
 	<welcome-file-list>
-		<welcome-file>loginAndRegistration/form.jsp</welcome-file>
+		<welcome-file>loginAndRegistration/loginAndRegistrationForm.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>

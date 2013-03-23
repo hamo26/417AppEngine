@@ -1,14 +1,14 @@
 package com.onlineauction.guice.servletmapping;
 
-import com.google.inject.Scopes;
 import com.google.inject.servlet.ServletModule;
-import com.onlineauction.user.servlet.OnlineAuctionLoginAndRegistrationServlet;
+import com.onlineauction.user.servlet.OnlineAuctionLoginServlet;
+import com.onlineauction.user.servlet.OnlineAuctionRegistrationServlet;
 
 public class ServletMappingsModule extends ServletModule {
 
 	@Override
 	protected void configureServlets() {
-		bind(OnlineAuctionLoginAndRegistrationServlet.class).in(Scopes.SINGLETON);
-		serve("/login").with(OnlineAuctionLoginAndRegistrationServlet.class);
+		serve("/login").with(OnlineAuctionLoginServlet.class);
+		serve("/register").with(OnlineAuctionRegistrationServlet.class);
 	}
 }

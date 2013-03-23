@@ -23,17 +23,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.inject.Singleton;
+
 @SuppressWarnings("serial")
-public class OnlineAuctionLoginAndRegistrationServlet extends HttpServlet {
-	private static final Logger log = Logger.getLogger(OnlineAuctionLoginAndRegistrationServlet.class.getName());
+@Singleton
+public class OnlineAuctionRegistrationServlet extends HttpServlet {
+	private static final Logger log = Logger.getLogger(OnlineAuctionRegistrationServlet.class.getName());
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
 	
     String userName = req.getParameter("userName");
     String password = req.getParameter("password");
-    
-    log.info("Hello: user: " + userName + " with password " + password);
+    String firstName = req.getParameter("firstName");
+    String lastName = req.getParameter("lastName");
+    log.info("Hello: user: " + userName + " with password " + password + 
+    		"and First Name: " + firstName + "and Last Name: " + lastName);
     
     
   }
