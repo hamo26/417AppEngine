@@ -1,4 +1,4 @@
-package com.onlineauction.domain.entity;
+package com.onlineauction.user.domain.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

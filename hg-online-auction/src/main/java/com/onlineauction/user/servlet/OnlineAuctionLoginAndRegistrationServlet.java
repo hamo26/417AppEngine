@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Google Inc. All Rights Reserved.
+ * Copyright 2012 Google Inc. All Rights Reserved. 
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,31 +14,27 @@
  * limitations under the License.
  */
 
-package com.onlineauction;
-
-import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
+package com.onlineauction.user.servlet;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class GuestbookServlet extends HttpServlet {
+@SuppressWarnings("serial")
+public class OnlineAuctionLoginAndRegistrationServlet extends HttpServlet {
+	private static final Logger log = Logger.getLogger(OnlineAuctionLoginAndRegistrationServlet.class.getName());
   @Override
-  public void doGet(HttpServletRequest req, HttpServletResponse resp)
+  public void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-
-    UserService userService = UserServiceFactory.getUserService();
-    User currentUser = userService.getCurrentUser();
-
-    if (currentUser != null) {
-      resp.setContentType("text/plain");
-      resp.getWriter().println("Hello, " + currentUser.getNickname());
-    } else {
-      resp.sendRedirect(userService.createLoginURL(req.getRequestURI()));
-    }
+	
+    String userName = req.getParameter("userName");
+    String password = req.getParameter("password");
+    
+    log.info("Hello: user: " + userName + " with password " + password);
+    
+    
   }
 }

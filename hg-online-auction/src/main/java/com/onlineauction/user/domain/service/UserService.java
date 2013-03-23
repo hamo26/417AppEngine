@@ -1,6 +1,6 @@
-package com.onlineauction.domain.service;
+package com.onlineauction.user.domain.service;
 
-import com.onlineauction.domain.entity.User;
+import com.onlineauction.user.domain.entity.User;
 
 /**
  * User Service.
