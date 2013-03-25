@@ -19,6 +19,7 @@ package com.onlineauction.user.servlet;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,18 +40,20 @@ public class OnlineAuctionLoginServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
+			throws IOException, ServletException {
 
 		String userName = req.getParameter("userName");
 		String password = req.getParameter("password");
 		
 		User user = userService.getUserByUserNameAndPassword(userName, password);
 		
+		req.setAttribute("user", user);
+		
 		if (user == null) {
 			log.info("User with name: " + userName + " does not exist");
 			return;
 		}
-		log.info("Hello: user: " + user.getUserName() + " with password " + user.getPassword());
-
+		
+		req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
 	}
 }

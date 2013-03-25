@@ -14,7 +14,7 @@ import com.googlecode.objectify.annotation.Index;
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of="userName")
 public class User {
 	
 	public static Key<User> key(String userName) {
