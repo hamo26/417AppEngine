@@ -47,17 +47,7 @@ a:hover {
 				<td width="23%" valign="top">
 					<p align="left">
 						<font size="4"><br>
-						<br> <a href="about.htm">Your Link</a><br>
-							<a href="about.htm">Your Link</a><br>
-							<a href="about.htm">Your Link</a><br>
-							<a href="about.htm">Your Link</a><br>
-							<a href="about.htm">Your Link</a><br>
-							<a href="about.htm">Your Link</a><br>
-							<a href="about.htm">Your Link</a><br>
-							<a href="about.htm">Your Link</a><br>
-							<a href="about.htm">Your Link</a><br>
-							<a href="about.htm">Your Link</a><br>
-							<a href="about.htm">Your Link</a></font>
+						<br> <a href="/profile/profile.jsp">Profile</a><br>
 					<p align="justify">
 						<br> <br><font face="Arial" size="2">Your
 							News</font>
