@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ page import="com.onlineauction.user.domain.entity.User"  %>
+
 <html>
 
 <head>
@@ -46,27 +50,10 @@ a:hover {
 			<tr>
 				<td width="23%" valign="top">
 					<p align="left">
-						<font size="4"><br>
-						<br> <a href="/profile/profile.jsp">Profile</a><br>
-					<p align="justify">
-						<br> <br><font face="Arial" size="2">Your
-							News</font>
-					</p>
-					<p align="justify">
-						<font face="Arial" size="2">Your News</font>
-					</p>
-					<p align="left">
-						<br><font face="Arial" size="2">Promotion 1</font>
-					</p>
-					<p align="left">
-						<font face="Arial" size="2">Promotion 2</font>
-					</p>
-					<p align="left">
-						<font face="Arial" size="2">Promotion 3</font><b><font
-							face="Arial" color="#587050" size="1"> <a href="promo.htm"><br>
-							</a><br>
-						</font></b>
-					</p>
+						<font size="4"><br> <br> <a
+							href="/profile/profile.jsp">Profile</a><br> <br> <a
+							href="/auction/auctionSearch.jsp">Auction Search</a><br> <br>
+							<a href="/auction/createAuctionForm.jsp">Create Auction</a><br>
 				</td>
 				<td width="77%" valign="top">
 					<table border="0" width="100%" cellspacing="0" cellpadding="0"
@@ -75,56 +62,18 @@ a:hover {
 							<td width="100%"><font size="1">&nbsp;</font></td>
 						</tr>
 					</table>
-					<table border="0" width="100%" bgcolor="#00ffff"
-						cellspacing="0" cellpadding="0">
+					<table border="0" width="100%" bgcolor="#00ffff" cellspacing="0"
+						cellpadding="0">
 						<tr>
 							<td width="100%">&nbsp;</td>
 						</tr>
 					</table>
 					<div align="justify">
 						<blockquote>
-							<h1>
-								<font face="Arial" size="4">Header 1</font>
-							</h1>
-							<b><font color="#587050" face="Arial" size="2">Y</font></b><font
-								color="#000000">our content goes in this space. Your
-								content goes in this space. Your content goes in this space.
-								Your content goes in this space. Your content goes in this
-								space. Your content goes in this space. Your content goes in
-								this space.&nbsp;</font>
+							<font color="#000000">Welcome to H & G Auctions <%=((User) request.getAttribute("user")).getUserName()%> &nbsp;</font>
 							<p>
-								<b><font color="#587050" face="Arial" size="2">Y</font></b><font
-									color="#000000">our content goes in this space. Your
-									content goes in this space. Your content goes in this space.
-									Your content goes in this space. Your content goes in this
-									space. Your content goes in this space.&nbsp;</font><font face="Arial"
-									size="2"><br> <br> </font> <font size="4"
-									face="Arial">Header 2</font>
-							</p>
-							<p>
-								<b><font color="#587050" face="Arial" size="2">Y</font></b><font
-									color="#000000">our content goes in this space. Your
-									content goes in this space. Your content goes in this space.
-									Your content goes in this space. Your content goes in this
-									space. Your content goes in this space. Your content goes in
-									this space. Your content goes in this space.&nbsp;</font>
-							</p>
-							<p>
-								<font color="#587050" face="Arial" size="2"><b>Y</b></font><font
-									color="#000000">our content goes in this space. Your
-									content goes in this space. Your content goes in this
-									space.&nbsp;</font>
-							</p>
-							<h3>
-								<font size="4" face="Arial">Header 3</font>
-							</h3>
-							<p>
-								<b><font color="#587050" face="Arial" size="2">Y</font></b><font
-									color="#000000">our content goes in this space. Your
-									content goes in this space. Your content goes in this space.
-									Your content goes in this space. Your content goes in this
-									space. Your content goes in this space. Your content goes in
-									this space. Your content goes in this space.&nbsp;</font>
+								<font color="#000000">To the left you will find a series
+									of options to begin your shopping experience.&nbsp;</font>
 							</p>
 						</blockquote>
 					</div>
@@ -142,33 +91,6 @@ a:hover {
 				</tr>
 			</table>
 		</center>
-	</div>
-
-	<div align="center">
-		<center>
-			<table border="0" width="80%" cellspacing="0" cellpadding="0"
-				bgcolor="#00ffff">
-				<tr>
-					<td width="100%">
-						<p align="center">
-							<b><font face="Arial" size="4">&nbsp; </font><font size="1"
-								face="Arial">©&nbsp;</font><font face="Arial" size="4"> </font><font
-								size="1" face="Arial">COPYRIGHT 2000&nbsp; ALL RIGHTS
-									RESERVED YOURDOMAIN.COM</font><font face="Arial" size="4">&nbsp;
-							</font></b>
-					</td>
-				</tr>
-			</table>
-		</center>
-	</div>
-	<div
-		style="text-align: center; font-family: Arial, Helvetica, Sans-Serif; font-size: 11px; color: #777;">
-		<a style="text-decoration: none; color: #777;"
-			href="http://www.quackit.com">Tutorials</a> | <a
-			style="text-decoration: none; color: #777;"
-			href="http://www.htmlcodes.me">Codes</a> | <a
-			style="text-decoration: none; color: #777;"
-			href="http://www.free-templates.me">Templates</a>
 	</div>
 </body>
 
