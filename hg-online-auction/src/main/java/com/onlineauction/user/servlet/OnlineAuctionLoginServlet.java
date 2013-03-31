@@ -17,7 +17,6 @@
 package com.onlineauction.user.servlet;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,14 +25,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.onlineauction.auction.exception.HgException;
 import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.domain.service.UserService;
 
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionLoginServlet extends HttpServlet {
-	private static final Logger log = Logger
-			.getLogger(OnlineAuctionLoginServlet.class.getName());
 
 	@Inject
 	private UserService userService;
@@ -45,15 +43,16 @@ public class OnlineAuctionLoginServlet extends HttpServlet {
 		String userName = req.getParameter("userName");
 		String password = req.getParameter("password");
 		
-		User user = userService.getUserByUserNameAndPassword(userName, password);
-		
-		req.setAttribute("user", user);
-		
-		if (user == null) {
-			log.info("User with name: " + userName + " does not exist");
+		try {
+			User user = userService.getUserByUserNameAndPassword(userName, password);
+			req.setAttribute("user", user);
+			req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
+		} catch (HgException e) {
+			//Do something with exception thrown.
 			return;
 		}
 		
-		req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
+		
+		
 	}
 }

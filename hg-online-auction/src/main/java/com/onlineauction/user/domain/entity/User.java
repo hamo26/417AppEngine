@@ -1,11 +1,13 @@
 package com.onlineauction.user.domain.entity;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
@@ -16,6 +18,7 @@ import com.onlineauction.rating.domain.entity.Rating;
 
 @Entity
 @NoArgsConstructor
+@RequiredArgsConstructor
 @EqualsAndHashCode(of="userName")
 public class User {
 	
@@ -23,42 +26,39 @@ public class User {
 		return Key.create(User.class, userName);
 	}
 	
-	public User (final String userName, final UserType type, 
-				 final String firstName, final String lastName, final String password, final String email) {
-		this.userName = userName;
-		this.type = type;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.password = password;
-		this.email = email;
-		this.ratings = new ArrayList<Rating>();
-		this.bids = new ArrayList<Bid>();
-	}
 	
 	@Getter
 	@Index
 	@Id
+	@NonNull
 	String userName;
 	
 	@Getter
+	@NonNull
 	UserType type;
 	
 	@Getter
+	@NonNull
 	String firstName;
 	
 	@Getter
+	@NonNull
 	String lastName;
 	
 	@Getter
 	@Index
+	@NonNull
 	String password;
 	
 	@Getter
+	@NonNull
 	String email;
 	
 	@Getter
+	@Setter
 	Collection<Rating> ratings;
 	
 	@Getter
+	@Setter
 	Collection<Bid> bids;
 }

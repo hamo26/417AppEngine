@@ -6,7 +6,6 @@ import com.googlecode.objectify.ObjectifyService;
 import com.onlineauction.auction.domain.entity.Auction;
 import com.onlineauction.bid.domain.entity.Bid;
 import com.onlineauction.item.domain.entity.Item;
-import com.onlineauction.rating.domain.entity.Rating;
 import com.onlineauction.user.domain.entity.User;
 
 public class HgDataService {
@@ -17,7 +16,6 @@ public class HgDataService {
 			factory().register(Item.class);
 			factory().register(Bid.class);
 			factory().register(Auction.class);
-			factory().register(Rating.class);
 		}
 		
 		public static Objectify objectify() {

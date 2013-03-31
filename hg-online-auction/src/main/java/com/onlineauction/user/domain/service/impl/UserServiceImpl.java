@@ -1,5 +1,8 @@
 package com.onlineauction.user.domain.service.impl;
 
+import java.util.ArrayList;
+
+import com.onlineauction.auction.exception.HgException;
 import com.onlineauction.objectify.HgDataService;
 import com.onlineauction.rating.domain.entity.Rating;
 import com.onlineauction.user.domain.entity.User;
@@ -14,7 +17,7 @@ import com.onlineauction.user.domain.service.UserService;
 public class UserServiceImpl implements UserService {
 
 	@Override
-	public User getUserByUserName(String userName) {
+	public User getUserByUserName(String userName) throws HgException{
 		User user = HgDataService.objectify()
 					 .load()
 					 .type(User.class)
@@ -22,14 +25,14 @@ public class UserServiceImpl implements UserService {
 					 .first().get();
 		if (user == null) {
 			//throw an exception stating that the user was not found.
-			
+			throw new HgException("User with username: " + userName + " does not exist");
 		} 
 		
 		return user;
 	}
 
 	@Override
-	public User getUserByUserNameAndPassword(String userName, String password) {
+	public User getUserByUserNameAndPassword(String userName, String password) throws HgException{
 		User user = HgDataService.objectify()
 					 .load()
 					 .type(User.class)
@@ -40,6 +43,7 @@ public class UserServiceImpl implements UserService {
 		
 		if (user == null) {
 			//throw an exception stating that the user name or password was incorrect.
+			throw new HgException("Username or password was incorrect");
 		}
 		
 		return user;
@@ -53,7 +57,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(String userId) {
+	public void deleteUser(String userId) throws HgException{
 		User userByUserId = getUserByUserName(userId);
 		
 		HgDataService.objectify()
@@ -62,8 +66,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void rateUser(String userId, Rating rating) {
+	public void rateUser(String userId, Rating rating) throws HgException {
 		User user = getUserByUserName(userId);
+		
+		if (user.getRatings() == null) {
+			user.setRatings(new ArrayList<Rating>());
+		}
 		
 		user.getRatings().add(rating);
 		

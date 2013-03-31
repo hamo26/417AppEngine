@@ -9,12 +9,11 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Embed;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-import com.onlineauction.user.domain.entity.User;
 
-@Entity
+@Embed
 @NoArgsConstructor
 @RequiredArgsConstructor
 @EqualsAndHashCode(of="id")
@@ -22,6 +21,13 @@ public class Rating {
 	
 	public static Key<Rating> key(long id) {
 		return Key.create(Rating.class, id);
+	}
+	
+	public Rating(final String description, final Integer rating, final String userName, final Date postingTime) {
+		this.description = description;
+		this.rating = rating;
+		this.userName = userName;
+		this.postingTime = postingTime;
 	}
 	
 	@Getter
@@ -40,7 +46,7 @@ public class Rating {
 	
 	@Getter
 	@NonNull
-	User user;
+	String userName;
 	
 	@Getter
 	@Index
