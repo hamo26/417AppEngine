@@ -1,5 +1,6 @@
 package com.onlineauction.user.domain.service;
 
+import com.onlineauction.rating.domain.entity.Rating;
 import com.onlineauction.user.domain.entity.User;
 
 /**
@@ -40,4 +41,12 @@ public interface UserService {
 	 * @param userId the user id
 	 */
 	void deleteUser(String userId);
+	
+	/**
+	 * Associate a rating with a user.
+	 * 
+	 * @param userId
+	 * @param rating
+	 */
+	void rateUser(String userId, Rating rating);
 }

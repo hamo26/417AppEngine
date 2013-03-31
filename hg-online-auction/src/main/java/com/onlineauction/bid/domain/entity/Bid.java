@@ -11,6 +11,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.onlineauction.item.domain.entity.Item;
+import com.onlineauction.user.domain.entity.User;
 
 @Entity
 @NoArgsConstructor
@@ -35,4 +36,8 @@ public class Bid {
 	@Getter
 	@NonNull
 	Item item;
+	
+	@Getter
+	@NonNull
+	User user;
 }

@@ -1,6 +1,7 @@
 package com.onlineauction.user.domain.service.impl;
 
 import com.onlineauction.objectify.HgDataService;
+import com.onlineauction.rating.domain.entity.Rating;
 import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.domain.service.UserService;
 
@@ -60,4 +61,14 @@ public class UserServiceImpl implements UserService {
 					 .entity(userByUserId);
 	}
 
+	@Override
+	public void rateUser(String userId, Rating rating) {
+		User user = getUserByUserName(userId);
+		
+		user.getRatings().add(rating);
+		
+		HgDataService.objectify()
+					 .save()
+					 .entity(user);
+	}
 }
