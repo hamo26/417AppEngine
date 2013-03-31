@@ -17,11 +17,13 @@
 package com.onlineauction.user.servlet;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -39,19 +41,24 @@ public class OnlineAuctionLoginServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-
+		
 		String userName = req.getParameter("userName");
 		String password = req.getParameter("password");
 		
+		User user;
 		try {
-			User user = userService.getUserByUserNameAndPassword(userName, password);
-			req.setAttribute("user", user);
-			req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
+			user = userService.getUserByUserNameAndPassword(userName, password);
+			if (user == null) {
+				req.getRequestDispatcher("/loginAndRegistration/loginAndRegistrationForm.jsp").forward(req, resp);
+			} else{
+				HttpSession session = req.getSession(true);
+				session.setAttribute("user", user);
+				req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
+			}
 		} catch (HgException e) {
-			//Do something with exception thrown.
-			return;
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
 		
 		
 	}

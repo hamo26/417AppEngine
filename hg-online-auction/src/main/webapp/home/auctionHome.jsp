@@ -70,7 +70,7 @@ a:hover {
 					</table>
 					<div align="justify">
 						<blockquote>
-							<font color="#000000">Welcome to H & G Auctions <%=((User) request.getAttribute("user")).getUserName()%> &nbsp;</font>
+							<font color="#000000">Welcome to H & G Auctions <%=((User) request.getSession().getAttribute("user")).getUserName()%> &nbsp;</font>
 							<p>
 								<font color="#000000">To the left you will find a series
 									of options to begin your shopping experience.&nbsp;</font>
