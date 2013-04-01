@@ -19,29 +19,30 @@
 		<li><a href="/auction/createAuctionForm.jsp">Create Auction</a></li>
 		<li><a href="/logout">Logout</a></li>
 	</ul></div>
-	<div id="main">
-	<table><tr><td>
+	<div id="lform">
+		<h2>HG AUCTION SEARCH AUCTION</h2>
 		<form method="post" action="searchAuction">
-			<h2>HG AUCTION SEARCH AUCTION</h2>
-			<div class="row">
+			<div>
 				<label for="itemNameInput" id="itemName">Item Name</label> 
 				<input id="itemNameInput" name="itemName" type="text"/>
 			</div>
-			<div class="row">
+			<div>
 				<input type="submit" value="Submit"/>
 			</div>
 		</form>
-	
-		<% Iterable<Auction> auctionList = (Iterable<Auction>)request.getAttribute("auctionList");%>
-		<table>
-			<% if(auctionList != null){ %>
-				<% for(Auction auction : auctionList){ %>
-					<!--  what do we want to display? -->
-				<% } %>
-			<% } %>
-		</table>
-	</td></tr></table>
 	</div>
+
+	<% Iterable<Auction> auctionList = (Iterable<Auction>)request.getAttribute("auctionList");%>
+	
+	<% if(auctionList != null){ %>
+		<div id="auctionlist">
+		<% for(Auction auction : auctionList){ %>
+			<div>
+				<!--  what do we want to display? -->
+			</div>
+		<% } %>
+		</div>
+	<% } %>
 </body>
 
 </html>
