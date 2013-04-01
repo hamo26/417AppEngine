@@ -19,25 +19,25 @@
 		<li><a href="/auction/createAuctionForm.jsp">Create Auction</a></li>
 		<li><a href="/logout">Logout</a></li>
 	</ul></div>
-	<div id="main">
-	<form method="post" action="createAuction">
+	<div id="lform">
 		<h2>HG AUCTION CREATE AUCTION</h2>
-		<div class="row">
-			<label for="itemNameInput" id="itemName">Item Name</label> 
-			<input id="itemNameInput" name="itemName" type="text"/>
-		</div>
-		<div class="row">
-			<label for="itemDescriptionInput" id="itemDescription">Item Description</label> 
-			<textarea id="itemDesciptionInput" name="itemDescription" rows="3" cols="50"></textarea>
-		</div>
-		<div class="row">
-			<label for="itemBasePriceInput" id="itemBasePrice">Item Base Price</label>
-			<input id="itemBasePriceInput" name="itemBasePrice" type="text"/>
-		</div>
-		<div class="row">
-			<input type="submit" value="Submit"/>
-		</div>
-	</form>
+		<form method="post" action="createAuction">
+			<div class="row">
+				<label for="itemNameInput" id="itemName">Item Name</label> 
+				<input id="itemNameInput" name="itemName" type="text"/>
+			</div>
+			<div class="row">
+				<label for="itemDescriptionInput" id="itemDescription">Item Description</label> 
+				<textarea id="itemDesciptionInput" name="itemDescription" rows="3"></textarea>
+			</div>
+			<div class="row">
+				<label for="itemBasePriceInput" id="itemBasePrice">Item Base Price</label>
+				<input id="itemBasePriceInput" name="itemBasePrice" type="text"/>
+			</div>
+			<div class="row">
+				<input type="submit" value="Submit"/>
+			</div>
+		</form>
 	</div>
 </body>
 </html>

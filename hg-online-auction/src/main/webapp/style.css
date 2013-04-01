@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 #main {
 	position:absolute;
-	left:300px;
+	left:250px;
 }
 
 #header {
@@ -10,6 +10,7 @@
 	margin-right:auto;
 }
 
+/* centered form */
 #cform {
 	text-align:center;
 	width:400px;
@@ -34,6 +35,28 @@
 }
 #cform input[type="submit"]{
 	margin:0 auto;
+}
+
+/* left-aligned form */
+#lform {
+	width:600px;
+	margin-left:250px;
+	font-size:16px;
+}
+#lform label{
+	float:left;
+	width:100px;
+	text-align:right;
+}
+#lform textarea{
+	width:400px;
+	float:left;
+	margin-left:2px;
+}
+#cform input[type="text"]{
+	width:190;
+	float:right;
+	height:13px;
 }
 
 #centered {
