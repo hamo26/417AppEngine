@@ -19,6 +19,7 @@
 		<li><a href="/profile/profile.jsp">Profile</a></li>
 		<li><a href="/auction/auctionSearch.jsp">Auction Search</a></li>
 		<li><a href="/auction/createAuctionForm.jsp">Create Auction</a></li>
+		<li><a href="/logout">Logout</a></li>
 	</ul></div>
 	<div id="main">
 		<h2>Welcome to H & G Auctions <%=((User) request.getSession().getAttribute("user")).getUserName()%> &nbsp;</h2>
