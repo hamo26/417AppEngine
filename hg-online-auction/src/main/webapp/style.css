@@ -10,13 +10,36 @@
 	margin-right:auto;
 }
 
-#login {
+#cform {
 	text-align:center;
+	width:400px;
+	margin:0 auto;
+	font-size:16px;
+}
+#cform label{
+	float:left;
+	text-align:right;
+	width:196px;
+	height:19px;
+}
+#cform input[type="text"]{	
+	width:190px;
+	float:right;
+	height:13px;
+}
+#cform input[type="password"]{	
+	width:190px;
+	float:right;
+	height:13px;
+}
+#cform input[type="submit"]{
+	margin:0 auto;
 }
 
 #centered {
 	text-align:center;
 }
+
 
 #navigation {
 	position:fixed;

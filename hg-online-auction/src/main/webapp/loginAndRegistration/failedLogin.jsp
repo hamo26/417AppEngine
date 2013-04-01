@@ -13,7 +13,7 @@
 	
 	<div id="centered">
 		<h2>Invalid username or password</h2>
-		<a href="/loginAndRegistration/loginAndRegistrationForm.jsp">back</a>
+		<a href="/">back</a>
 	</div>
 	
 	

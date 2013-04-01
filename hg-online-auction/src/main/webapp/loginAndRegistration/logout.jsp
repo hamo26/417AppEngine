@@ -13,7 +13,7 @@
 	
 	<div id="centered">
 		<h2>Successfully logged out</h2>
-		<a href="/loginAndRegistration/loginAndRegistrationForm.jsp">back to login</a>
+		<a href="/">back to login</a>
 	</div>
 	
 	

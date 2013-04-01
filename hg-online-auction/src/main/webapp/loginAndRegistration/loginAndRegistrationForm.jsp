@@ -10,23 +10,23 @@
 	<div id="header">
 		<h1>H & G Auctions</h1>
 	</div>
-	<div id="login">
-		<form method="post" action="login">
-			<h2>Log in</h2>
-			<div class="row">
+	<div id="cform">
+		<h2>Log in</h2>
+		<form method="post" action="/login">
+			<div>
 				<label for="userNameInput" id="userName">User Name</label> 
 				<input id="userNameInput" name="userName" type="text"/>
 			</div>
-			<div class="row">
+			<div>
 				<label for="passwordInput" id="password">Password</label> 
 				<input id="password" name="password" type="password"/>
 			</div>
-			<div class="row">
+			<div>
 				<input type="submit" value="Login"/>
 			</div>
 		</form>
-		<form method="post" action="register">
-			<h2>or register</h2>
+		<h2>or Register</h2>
+		<form method="post" action="/register">
 			<div class="row">
 				<label for="userNameInput" id="userName">User Name</label> 
 				<input id="userNameInput" name="userName" type="text"/>
@@ -55,5 +55,6 @@
 				<input type="submit" value="Register"/>
 			</div>
 		</form>
-</div>
+	</div>
+</body>
 </html>
