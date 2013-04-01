@@ -48,16 +48,11 @@ public class OnlineAuctionLoginServlet extends HttpServlet {
 		User user;
 		try {
 			user = userService.getUserByUserNameAndPassword(userName, password);
-			if (user == null) {
-				req.getRequestDispatcher("/loginAndRegistration/loginAndRegistrationForm.jsp").forward(req, resp);
-			} else{
-				HttpSession session = req.getSession(true);
-				session.setAttribute("user", user);
-				req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
-			}
+			HttpSession session = req.getSession(true);
+			session.setAttribute("user", user);
+			req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
 		} catch (HgException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			req.getRequestDispatcher("/loginAndRegistration/failedLogin.jsp").forward(req, resp);
 		}
 		
 		
