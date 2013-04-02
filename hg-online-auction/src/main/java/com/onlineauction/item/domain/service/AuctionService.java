@@ -36,14 +36,6 @@ public interface AuctionService {
 	Collection<Auction> searchForAuctionsByDescription(String description);
 	
 	/**
-	 * Search for auctions by item name.
-	 * 
-	 * @param itemName
-	 * @return
-	 */
-	Collection<Auction> searchForAuctionByItemName(String itemName);
-	
-	/**
 	 * Place a bid for an auction.
 	 * 
 	 * @param bid

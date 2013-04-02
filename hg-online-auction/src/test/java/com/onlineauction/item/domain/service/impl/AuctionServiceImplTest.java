@@ -146,8 +146,19 @@ public class AuctionServiceImplTest {
 		} catch (HgException e) {
 			fail("The auction should have been found after creation");
 		}
-		
-		
+	}
+	
+	@Test
+	public void testsearchForAuctionsByDescriptionWhenAuctionExpires() throws InterruptedException, ParseException {
+			Item testItem = new Item(1,"testDescription", 98.0);
+			
+			auctionService.createAuction(TEST_USER_ID, testItem, 
+					new SimpleDateFormat("dd/MM/yyyy").parse("26/08/1900"));
+			Thread.sleep(100);
+			
+			Collection<Auction> auctions = auctionService.searchForAuctionsByDescription("te");
+			
+			assertTrue("There should be no auctions found", auctions.isEmpty());
 	}
 	
 	private void assertEqualAuctions(Auction expectedAuction, Auction auction) {

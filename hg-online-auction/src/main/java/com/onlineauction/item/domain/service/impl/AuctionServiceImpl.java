@@ -66,11 +66,6 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 	@Override
-	public Collection<Auction> searchForAuctionByItemName(String itemName) {
-		return null;
-	}
-
-	@Override
 	public void placeBidForAuction(Bid bid, long auctionId) throws HgException{
 		Auction auctionById = getAuctionById(auctionId);
 		
