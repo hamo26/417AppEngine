@@ -1,38 +1,53 @@
 package com.onlineauction.item.domain.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import com.google.inject.Inject;
 import com.onlineauction.auction.domain.entity.Auction;
+import com.onlineauction.auction.exception.HgException;
 import com.onlineauction.bid.domain.entity.Bid;
 import com.onlineauction.item.domain.entity.Item;
 import com.onlineauction.item.domain.service.AuctionService;
 import com.onlineauction.objectify.HgDataService;
-import com.onlineauction.user.domain.entity.User;
+import com.onlineauction.user.domain.service.UserService;
 
 public class AuctionServiceImpl implements AuctionService {
-
+	
+	private UserService userService;
+	
+	@Inject
+	public AuctionServiceImpl(final UserService userService) {
+		this.userService = userService;
+	}
+	
 	@Override
-	public void createAuction(User user, Item item, Date endTime) {
+	public long createAuction(String userId, Item item, Date endTime) {
 		
-		Auction auction = new Auction(new Date(), endTime, item, user);
+		Auction auction = new Auction(new Date(), endTime, item, userId);
 		
 		HgDataService.objectify()
 					 .save()
-					 .entity(auction);
+					 .entity(auction)
+					 .now();
+		
+		return auction.getId();
+		
 	}
 
 	@Override
-	public Auction getAuctionById(long auctionId) {
+	public Auction getAuctionById(long auctionId) throws HgException{
 		Auction auction = HgDataService.objectify()
 					 .load()
 					 .type(Auction.class)
 					 .filter("id ==", auctionId)
-					 .first().get();
+					 .first()
+					 .get();
 		
 		if (auction == null) {
-			//throw an exception stating that auction was not found.
+			throw new HgException("Auction with " + auctionId + " does not exist");
 		}
 		
 		return auction;
@@ -49,17 +64,22 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 	@Override
-	public void placeBidForAuction(Bid bid, long auctionId) {
+	public void placeBidForAuction(Bid bid, long auctionId) throws HgException{
 		// TODO Auto-generated method stub
 		Auction auctionById = getAuctionById(auctionId);
+		
+		if (auctionById.getBidsPlaced() == null) {
+			auctionById.setBidsPlaced(new ArrayList<Bid>());
+		}
+		
 		auctionById.getBidsPlaced().add(bid);
 		
-		User user = bid.getUser();
-		user.getBids().add(bid);
+		String userId = bid.getUserId();
+		userService.addUserBid(userId, bid);
 		
 		HgDataService.objectify()
 					 .save()
-					 .entities(auctionById, user);
+					 .entities(auctionById);
 	}
 
 	@Override
@@ -69,7 +89,7 @@ public class AuctionServiceImpl implements AuctionService {
 		List<Auction> auctions = HgDataService.objectify()
 					 .load()
 					 .type(Auction.class)
-					 .filter("endDate <= ", currentDate)
+					 .filter("endTime < ", currentDate)
 					 .list();
 		
 		if (!auctions.isEmpty()) {

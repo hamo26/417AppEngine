@@ -4,18 +4,20 @@ import java.util.Collection;
 import java.util.Date;
 
 import com.onlineauction.auction.domain.entity.Auction;
+import com.onlineauction.auction.exception.HgException;
 import com.onlineauction.bid.domain.entity.Bid;
 import com.onlineauction.item.domain.entity.Item;
-import com.onlineauction.user.domain.entity.User;
 
 public interface AuctionService {
 
 	/**
-	 * Creates an item.
+	 * Create an auction. 
 	 * 
+	 * @param userId
 	 * @param item
+	 * @param endTime
 	 */
-	void createAuction(User user, Item item, Date endTime);
+	long createAuction(String userId, Item item, Date endTime);
 	
 	/**
 	 * Get an auction by id.
@@ -23,7 +25,7 @@ public interface AuctionService {
 	 * @param auctionId
 	 * @return
 	 */
-	Auction getAuctionById(long auctionId); 
+	Auction getAuctionById(long auctionId) throws HgException; 
 	
 	/**
 	 * Search for an auction by its description.
@@ -47,7 +49,7 @@ public interface AuctionService {
 	 * @param bid
 	 * @param auctionId
 	 */
-	void placeBidForAuction(Bid bid, long auctionId);
+	void placeBidForAuction(Bid bid, long auctionId) throws HgException;
 	
 	/**
 	 * Cleans up auctions that have ended.

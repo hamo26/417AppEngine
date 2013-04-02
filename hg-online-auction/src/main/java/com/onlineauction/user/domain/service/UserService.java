@@ -1,6 +1,7 @@
 package com.onlineauction.user.domain.service;
 
 import com.onlineauction.auction.exception.HgException;
+import com.onlineauction.bid.domain.entity.Bid;
 import com.onlineauction.rating.domain.entity.Rating;
 import com.onlineauction.user.domain.entity.User;
 
@@ -50,4 +51,12 @@ public interface UserService {
 	 * @param rating
 	 */
 	void rateUser(String userId, Rating rating) throws HgException;
+	
+	/**
+	 * Add a bid a user has created.
+	 * 
+	 * @param userId
+	 * @param bid
+	 */
+	void addUserBid(String userId, Bid bid) throws HgException;
 }

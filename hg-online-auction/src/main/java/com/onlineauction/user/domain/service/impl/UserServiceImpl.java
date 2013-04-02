@@ -3,6 +3,7 @@ package com.onlineauction.user.domain.service.impl;
 import java.util.ArrayList;
 
 import com.onlineauction.auction.exception.HgException;
+import com.onlineauction.bid.domain.entity.Bid;
 import com.onlineauction.objectify.HgDataService;
 import com.onlineauction.rating.domain.entity.Rating;
 import com.onlineauction.user.domain.entity.User;
@@ -74,6 +75,21 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		user.getRatings().add(rating);
+		
+		HgDataService.objectify()
+					 .save()
+					 .entity(user);
+	}
+
+	@Override
+	public void addUserBid(String userId, Bid bid) throws HgException{
+		User user = getUserByUserName(userId);
+		
+		if (user.getBids() == null) {
+			user.setBids(new ArrayList<Bid>());
+		}
+		
+		user.getBids().add(bid);
 		
 		HgDataService.objectify()
 					 .save()

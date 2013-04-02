@@ -7,16 +7,17 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import com.googlecode.objectify.Key;
+import com.googlecode.objectify.annotation.Embed;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.onlineauction.item.domain.entity.Item;
-import com.onlineauction.user.domain.entity.User;
 
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
 @EqualsAndHashCode(of="id")
+@Embed
 public class Bid {
 	
 	public static Key<Bid> key(long id) {
@@ -26,8 +27,7 @@ public class Bid {
 	@Getter
 	@Index
 	@Id
-	@NonNull
-	long id;
+	Long id;
 	
 	@Getter
 	@NonNull
@@ -39,5 +39,5 @@ public class Bid {
 	
 	@Getter
 	@NonNull
-	User user;
+	String userId;
 }

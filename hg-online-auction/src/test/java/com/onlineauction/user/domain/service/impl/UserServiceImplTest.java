@@ -13,6 +13,8 @@ import org.junit.Test;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.onlineauction.auction.exception.HgException;
+import com.onlineauction.bid.domain.entity.Bid;
+import com.onlineauction.item.domain.entity.Item;
 import com.onlineauction.rating.domain.entity.Rating;
 import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.domain.entity.UserType;
@@ -20,6 +22,7 @@ import com.onlineauction.user.domain.service.UserService;
 
 public class UserServiceImplTest {
 
+	private static final double TEST_BID_PRICE = 98.0;
 	private static final String INVALID_PASSWORD = "invalidPassword";
 	private static final String TEST_EMAIL = "testEmail";
 	private static final String TEST_PASSWORD = "testPassword";
@@ -78,7 +81,6 @@ public class UserServiceImplTest {
 			userService.deleteUser(TEST_USER_NAME);
 			
 			user = userService.getUserByUserName(TEST_USER_NAME);
-			Assert.assertNull("User should not exist", user);
 	}
 	
 	@Test(expected=HgException.class)
@@ -125,6 +127,31 @@ public class UserServiceImplTest {
 			
 			Assert.assertEquals("The ratings cast should be same as expected", Arrays.asList(rating, rating2),
 					retrievedUser.getRatings());
+		} catch (Exception e) {
+			fail("No exceptions should be thrown");
+		}
+	}
+	
+	@Test
+	public void testAddUserBid() {
+		try {
+			User user = createUser();
+			userService.subscribeUser(user);
+			Thread.sleep(100);
+			
+			Item testItem = new Item();
+			Bid bid = new Bid(TEST_BID_PRICE, testItem, TEST_USER_NAME);
+			
+			
+			userService.addUserBid(TEST_USER_NAME, bid);
+			Thread.sleep(100);
+			
+			User userAfterBid = userService.getUserByUserName(TEST_USER_NAME);
+			
+			
+			Assert.assertTrue("the bids should only contain expected bid", userAfterBid.getBids().size() == 1);
+			Assert.assertEquals("The bid should be the same as expecgted", bid, 
+					userAfterBid.getBids().iterator().next());
 		} catch (Exception e) {
 			fail("No exceptions should be thrown");
 		}
