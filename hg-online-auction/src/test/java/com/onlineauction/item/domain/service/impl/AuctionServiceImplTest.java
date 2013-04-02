@@ -1,7 +1,12 @@
 package com.onlineauction.item.domain.service.impl;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 
 import junit.framework.Assert;
@@ -95,9 +100,9 @@ public class AuctionServiceImplTest {
 		Thread.sleep(100);
 		Auction auctionAfterBid = auctionService.getAuctionById(auctionId);
 		
-		Assert.assertTrue("There should only be one bid", 
+		assertTrue("There should only be one bid", 
 					auctionAfterBid.getBidsPlaced().size() == 1);
-		Assert.assertEquals("The bid placed should be same as expected",
+		assertEquals("The bid placed should be same as expected",
 				bid, auctionAfterBid.getBidsPlaced().iterator().next());
 	}
 	
@@ -122,6 +127,27 @@ public class AuctionServiceImplTest {
 		
 		
 		auctionService.getAuctionById(auctionToBeDeletedId);
+	}
+	
+	@Test
+	public void testsearchForAuctionsByDescription() throws InterruptedException, ParseException {
+		try {
+			Item testItem = new Item(1,"testDescription", 98.0);
+			
+			long auctionCreated = auctionService.createAuction(TEST_USER_ID, testItem, 
+					new SimpleDateFormat("dd/MM/yyyy").parse("26/08/2013"));
+			Thread.sleep(100);
+			Auction expectedAuction = auctionService.getAuctionById(auctionCreated);
+			Collection<Auction> auctions = auctionService.searchForAuctionsByDescription("te");
+			
+			assertTrue("There should only be one auction found", auctions.size() == 1);
+			assertEquals("The auction returned should be the same as expected", expectedAuction,
+					auctions.iterator().next());
+		} catch (HgException e) {
+			fail("The auction should have been found after creation");
+		}
+		
+		
 	}
 	
 	private void assertEqualAuctions(Auction expectedAuction, Auction auction) {

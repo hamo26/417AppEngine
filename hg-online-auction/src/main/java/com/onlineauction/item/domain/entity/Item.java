@@ -31,6 +31,7 @@ public class Item {
 	
 	@Getter
 	@NonNull
+	@Index
 	String description;
 	
 	@Getter
