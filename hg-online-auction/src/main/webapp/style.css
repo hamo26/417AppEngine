@@ -10,6 +10,10 @@
 	margin-right:auto;
 }
 
+#row{
+	margin-bottom:10px;
+}
+
 /* centered form */
 #cform {
 	text-align:center;
@@ -52,11 +56,16 @@
 	margin-left:2px;
 }
 #lform input[type="text"]{
-	width:190;
+	width:400px;
 	height:13px;
+	margin-left:2px;
 }
 #lform input[type="submit"]{
 	margin-left:150px;
+}
+#lform input[id="datepick"]{
+	margin-left:2px;
+	width:400px;
 }
 
 #centered {
@@ -95,4 +104,9 @@
 }
 #navigation ul li a:hover {
 	background-color: #6495ED;
+}
+
+
+#auction {
+	
 }

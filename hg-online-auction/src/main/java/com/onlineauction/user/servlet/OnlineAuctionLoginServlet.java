@@ -44,11 +44,13 @@ public class OnlineAuctionLoginServlet extends HttpServlet {
 		String userName = req.getParameter("userName");
 		String password = req.getParameter("password");
 		
-		User user;
 		try {
-			user = userService.getUserByUserNameAndPassword(userName, password);
+			User user = userService.getUserByUserNameAndPassword(userName, password);
 			HttpSession session = req.getSession(true);
-			session.setAttribute("user", user);
+			session.setAttribute("userName", user.getUserName());
+			session.setAttribute("firstName", user.getFirstName());
+			session.setAttribute("lastName", user.getLastName());
+			session.setAttribute("email", user.getEmail());
 			req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
 		} catch (HgException e) {
 			req.getRequestDispatcher("/loginAndRegistration/failedLogin.jsp").forward(req, resp);

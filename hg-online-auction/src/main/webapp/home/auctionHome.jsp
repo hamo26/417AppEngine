@@ -22,7 +22,7 @@
 		<li><a href="/logout">Logout</a></li>
 	</ul></div>
 	<div id="main">
-		<h2>Welcome to H & G Auctions <%=((User) request.getSession().getAttribute("user")).getUserName()%> &nbsp;</h2>
+		<h2>Welcome to H & G Auctions <%=request.getSession().getAttribute("userName")%> &nbsp;</h2>
 		<p>
 		To the left you will find a series
 				of options to begin your shopping experience.&nbsp;

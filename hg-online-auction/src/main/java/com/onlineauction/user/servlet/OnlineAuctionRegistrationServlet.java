@@ -55,7 +55,7 @@ public class OnlineAuctionRegistrationServlet extends HttpServlet {
 		
 		log.info("Subscribed user with username: " + userName);
 		HttpSession session = req.getSession(true);
-		session.setAttribute("user", newUser);
+		session.setAttribute("userName", newUser.getUserName());
 		req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
 	}
 }
