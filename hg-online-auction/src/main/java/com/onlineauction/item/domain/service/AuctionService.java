@@ -28,12 +28,20 @@ public interface AuctionService {
 	Auction getAuctionById(long auctionId) throws HgException; 
 	
 	/**
-	 * Search for an auction by its description.
+	 * Search for auctions by description.
 	 * 
 	 * @param description
 	 * @return
 	 */
 	Collection<Auction> searchForAuctionsByDescription(String description);
+	
+	/**
+	 * Search for auctions name.
+	 * 
+	 * @param name 
+	 * @return
+	 */
+	Collection<Auction> searchForAuctionsByName(String name);
 	
 	/**
 	 * Place a bid for an auction.

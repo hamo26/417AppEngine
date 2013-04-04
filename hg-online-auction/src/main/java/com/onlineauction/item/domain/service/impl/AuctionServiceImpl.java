@@ -66,6 +66,18 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 	@Override
+	public Collection<Auction> searchForAuctionsByName(String nameSearchTerm) {
+		List<Auction> auctions = HgDataService.objectify()
+				 .load()
+				 .type(Auction.class)
+				 .filter("auctionItem.name >=", nameSearchTerm)
+				 .filter("auctionItem.name <=", nameSearchTerm + "\ufffd")
+				 .list();
+	
+		return removedExpiredAuctions(auctions);
+	}
+	
+	@Override
 	public void placeBidForAuction(Bid bid, long auctionId) throws HgException{
 		Auction auctionById = getAuctionById(auctionId);
 		
@@ -112,5 +124,6 @@ public class AuctionServiceImpl implements AuctionService {
 		
 		return cleanedAuctions;
 	}
+
 
 }
