@@ -26,8 +26,7 @@ public class Item {
 	@Getter
 	@Index
 	@Id
-	@NonNull
-	long id;
+	Long id;
 	
 	@Getter
 	@NonNull

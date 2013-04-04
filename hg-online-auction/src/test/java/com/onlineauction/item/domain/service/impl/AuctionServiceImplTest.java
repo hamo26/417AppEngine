@@ -136,7 +136,7 @@ public class AuctionServiceImplTest {
 	@Test
 	public void testsearchForAuctionsByDescription() throws InterruptedException, ParseException {
 		try {
-			Item testItem = new Item(1,TEST_NAME, TEST_DESCRIPTION, 98.0);
+			Item testItem = new Item(TEST_NAME, TEST_DESCRIPTION, 98.0);
 			
 			long auctionCreated = auctionService.createAuction(TEST_USER_ID, testItem, 
 					new SimpleDateFormat("dd/MM/yyyy").parse("26/08/2013"));
@@ -155,7 +155,7 @@ public class AuctionServiceImplTest {
 	@Test
 	public void testsearchForAuctionsByName() throws InterruptedException, ParseException {
 		try {
-			Item testItem = new Item(1,TEST_NAME, TEST_DESCRIPTION, 98.0);
+			Item testItem = new Item(TEST_NAME, TEST_DESCRIPTION, 98.0);
 			
 			long auctionCreated = auctionService.createAuction(TEST_USER_ID, testItem, 
 					new SimpleDateFormat("dd/MM/yyyy").parse("26/08/2013"));
@@ -173,7 +173,7 @@ public class AuctionServiceImplTest {
 	
 	@Test
 	public void testsearchForAuctionsByDescriptionWhenAuctionExpires() throws InterruptedException, ParseException {
-			Item testItem = new Item(1,TEST_NAME, TEST_DESCRIPTION, 98.0);
+			Item testItem = new Item(TEST_NAME, TEST_DESCRIPTION, 98.0);
 			
 			auctionService.createAuction(TEST_USER_ID, testItem, 
 					new SimpleDateFormat("dd/MM/yyyy").parse("26/08/1900"));
