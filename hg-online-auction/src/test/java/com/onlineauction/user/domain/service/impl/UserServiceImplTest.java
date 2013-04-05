@@ -22,6 +22,7 @@ import com.onlineauction.user.domain.service.UserService;
 
 public class UserServiceImplTest {
 
+	private static final Long AUCTION_ID = new Long(123);
 	private static final double TEST_BID_PRICE = 98.0;
 	private static final String INVALID_PASSWORD = "invalidPassword";
 	private static final String TEST_EMAIL = "testEmail";
@@ -140,7 +141,7 @@ public class UserServiceImplTest {
 			Thread.sleep(100);
 			
 			Item testItem = new Item();
-			Bid bid = new Bid(TEST_BID_PRICE, testItem, TEST_USER_NAME);
+			Bid bid = new Bid(TEST_BID_PRICE, testItem, AUCTION_ID, TEST_USER_NAME);
 			
 			
 			userService.addUserBid(TEST_USER_NAME, bid);

@@ -39,5 +39,9 @@ public class Bid {
 	
 	@Getter
 	@NonNull
+	Long auctionId;
+	
+	@Getter
+	@NonNull
 	String userId;
 }

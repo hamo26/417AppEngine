@@ -201,6 +201,13 @@ public class AuctionServiceImplTest {
 		auctionService.getAuctionById(auctionToBeDeletedId);
 	}
 	
+	@Test
+	public void testIsAuctionExpired() throws HgException {
+		long auctionId = auctionService.createAuction(TEST_USER_ID, TEST_ITEM, TEST_END_TIME);
+		assertTrue("The auction should be expired", auctionService.isAuctionExpired(auctionId));
+		
+	}
+	
 	private void assertEqualAuctions(Auction expectedAuction, Auction auction) {
 		Assert.assertEquals("The auction sellers should be equal", expectedAuction.getSellerId(), 
 								auction.getSellerId());

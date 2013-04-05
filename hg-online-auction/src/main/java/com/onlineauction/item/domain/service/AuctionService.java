@@ -59,6 +59,14 @@ public interface AuctionService {
 	void deleteAuction(long auctionId) throws HgException;
 	
 	/**
+	 * Checks if an auction is expired.
+	 * 
+	 * @param auctionId
+	 * @return
+	 */
+	Boolean isAuctionExpired(long auctionId) throws HgException;
+	
+	/**
 	 * Cleans up auctions that have ended.
 	 */
 	void cleanupAuctions();
