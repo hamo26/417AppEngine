@@ -184,6 +184,23 @@ public class AuctionServiceImplTest {
 			assertTrue("There should be no auctions found", auctions.isEmpty());
 	}
 	
+	@Test(expected = HgException.class)
+	public void testDeleteAuction() throws InterruptedException, HgException {
+		long auctionToBeDeletedId = auctionService.createAuction(TEST_USER_ID, TEST_ITEM, TEST_END_TIME);
+		
+		Thread.sleep(100);
+		
+		try {
+			auctionService.deleteAuction(auctionToBeDeletedId);
+		} catch (HgException e) {
+			fail("The deletion should not throw an exception at this point.");
+		}
+		
+		Thread.sleep(100);
+		
+		auctionService.getAuctionById(auctionToBeDeletedId);
+	}
+	
 	private void assertEqualAuctions(Auction expectedAuction, Auction auction) {
 		Assert.assertEquals("The auction sellers should be equal", expectedAuction.getSellerId(), 
 								auction.getSellerId());

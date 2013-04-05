@@ -13,16 +13,12 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.onlineauction.auction.domain.entity.Auction;
 import com.onlineauction.item.domain.service.AuctionService;
-import com.onlineauction.user.domain.service.UserService;
 
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionSearchAuctionsServlet extends HttpServlet {
 	private static final Logger log = Logger
 			.getLogger(OnlineAuctionSearchAuctionsServlet.class.getName());
-	
-	@Inject
-	private UserService userService;
 	
 	@Inject
 	private AuctionService auctionService;

@@ -52,6 +52,13 @@ public interface AuctionService {
 	void placeBidForAuction(Bid bid, long auctionId) throws HgException;
 	
 	/**
+	 * Deletes an auction.
+	 * 
+	 * @param auctionId
+	 */
+	void deleteAuction(long auctionId) throws HgException;
+	
+	/**
 	 * Cleans up auctions that have ended.
 	 */
 	void cleanupAuctions();

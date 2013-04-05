@@ -125,5 +125,14 @@ public class AuctionServiceImpl implements AuctionService {
 		return cleanedAuctions;
 	}
 
+	@Override
+	public void deleteAuction(long auctionId) throws HgException {
+		Auction auctionById = getAuctionById(auctionId);
+		
+		HgDataService.objectify()
+					 .delete()
+					 .entity(auctionById);
+	}
+
 
 }
