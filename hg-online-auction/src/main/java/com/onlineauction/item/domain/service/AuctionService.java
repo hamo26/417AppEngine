@@ -67,6 +67,14 @@ public interface AuctionService {
 	Boolean isAuctionExpired(long auctionId) throws HgException;
 	
 	/**
+	 * Gets the highest bid for an auction.
+	 * 
+	 * @param auctionId
+	 * @return
+	 */
+	Bid getHighestBidForAuction(long auctionId) throws HgException;
+	
+	/**
 	 * Cleans up auctions that have ended.
 	 */
 	void cleanupAuctions();

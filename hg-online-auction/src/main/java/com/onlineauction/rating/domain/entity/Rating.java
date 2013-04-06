@@ -23,8 +23,8 @@ public class Rating {
 		return Key.create(Rating.class, id);
 	}
 	
-	public Rating(final String description, final Integer rating, final String userName, final Date postingTime) {
-		this.description = description;
+	public Rating(final String comment, final Integer rating, final String userName, final Date postingTime) {
+		this.comment = comment;
 		this.rating = rating;
 		this.userName = userName;
 		this.postingTime = postingTime;
@@ -38,7 +38,7 @@ public class Rating {
 	
 	@Getter
 	@NonNull
-	String description;
+	String comment;
 	
 	@Getter
 	@NonNull

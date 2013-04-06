@@ -2,6 +2,8 @@ package com.onlineauction.item.domain.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -141,5 +143,19 @@ public class AuctionServiceImpl implements AuctionService {
 		return (new Date()).after(auction.getEndTime());
 	}
 
+	@Override
+	public Bid getHighestBidForAuction(long auctionId) throws HgException {
+		Auction auction = getAuctionById(auctionId);
+		ArrayList<Bid> bidsPlaced = new ArrayList<Bid>(auction.getBidsPlaced());
+		
+		Collections.sort(bidsPlaced, new Comparator<Bid>() {
 
+			@Override
+			public int compare(Bid bid1, Bid bid2) {
+				return bid1.getBidPrice().compareTo(bid2.getBidPrice());
+			}
+		});
+		
+		return bidsPlaced.get(bidsPlaced.size() - 1);
+	}
 }

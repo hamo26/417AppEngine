@@ -208,6 +208,25 @@ public class AuctionServiceImplTest {
 		
 	}
 	
+	@Test
+	public void testGetHighestBidForAuction() {
+		try {
+			long auctionId = auctionService.createAuction(TEST_USER_ID, TEST_ITEM, TEST_END_TIME);
+			Bid bid1 = new Bid(10.0,TEST_ITEM,auctionId,TEST_USER_ID);
+			Bid bid2 = new Bid(30.0, TEST_ITEM,auctionId,TEST_USER_ID);
+			Bid highestBid = new Bid(250.0, TEST_ITEM,auctionId,TEST_USER_ID);
+			auctionService.placeBidForAuction(bid1, auctionId);
+			auctionService.placeBidForAuction(highestBid, auctionId);
+			auctionService.placeBidForAuction(bid2, auctionId);
+			
+			Bid highestBidForAuction = auctionService.getHighestBidForAuction(auctionId);
+			
+			assertEquals("the highest bid for the auction should be 30", highestBid.getBidPrice(), highestBidForAuction.getBidPrice());
+		} catch (HgException e) {
+			fail("The test should not throw an exception");
+		}
+	}
+	
 	private void assertEqualAuctions(Auction expectedAuction, Auction auction) {
 		Assert.assertEquals("The auction sellers should be equal", expectedAuction.getSellerId(), 
 								auction.getSellerId());
