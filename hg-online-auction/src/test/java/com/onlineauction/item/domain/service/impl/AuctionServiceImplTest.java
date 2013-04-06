@@ -1,6 +1,7 @@
 package com.onlineauction.item.domain.service.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -222,6 +223,19 @@ public class AuctionServiceImplTest {
 			Bid highestBidForAuction = auctionService.getHighestBidForAuction(auctionId);
 			
 			assertEquals("the highest bid for the auction should be 30", highestBid.getBidPrice(), highestBidForAuction.getBidPrice());
+		} catch (HgException e) {
+			fail("The test should not throw an exception");
+		}
+	}
+	
+	@Test
+	public void testGetHighestBidForAuctionWithNoBids() {
+		try {
+			long auctionId = auctionService.createAuction(TEST_USER_ID, TEST_ITEM, TEST_END_TIME);
+			
+			Bid highestBidForAuction = auctionService.getHighestBidForAuction(auctionId);
+			
+			assertNull("the highest bid should be null", highestBidForAuction);
 		} catch (HgException e) {
 			fail("The test should not throw an exception");
 		}

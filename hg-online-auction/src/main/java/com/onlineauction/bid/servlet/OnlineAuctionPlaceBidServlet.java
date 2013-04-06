@@ -39,6 +39,18 @@ public class OnlineAuctionPlaceBidServlet extends HttpServlet {
 			Item item = auctionService.getAuctionById(auctionId).getAuctionItem();
 			log.info("item " + item.getName());
 			Bid bid = new Bid(bidPrice, item, auctionId, (String)req.getSession().getAttribute("userName"));
+			
+			Bid highestBidForAuction = auctionService.getHighestBidForAuction(auctionId);
+			
+			if (null != highestBidForAuction && bid.getBidPrice() <= highestBidForAuction.getBidPrice()) {
+				//Display error alerting user that bid placed needs to be higher.
+				//One way of doing this is to set the following 
+				//error attribute after checking the post bid action status.
+				req.setAttribute("biddingError", Boolean.TRUE);
+			} else {
+				req.setAttribute("biddingError", Boolean.FALSE);
+			}
+			
 			auctionService.placeBidForAuction(bid, auctionId);
 			
 			req.setAttribute("auctionId", auctionId);

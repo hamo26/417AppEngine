@@ -146,16 +146,23 @@ public class AuctionServiceImpl implements AuctionService {
 	@Override
 	public Bid getHighestBidForAuction(long auctionId) throws HgException {
 		Auction auction = getAuctionById(auctionId);
-		ArrayList<Bid> bidsPlaced = new ArrayList<Bid>(auction.getBidsPlaced());
+		Bid highestBid = null;
 		
-		Collections.sort(bidsPlaced, new Comparator<Bid>() {
-
-			@Override
-			public int compare(Bid bid1, Bid bid2) {
-				return bid1.getBidPrice().compareTo(bid2.getBidPrice());
-			}
-		});
+		Collection<Bid> bidsPlaced = auction.getBidsPlaced();
+		if (null != bidsPlaced) {
+			ArrayList<Bid> bidsPlacedToSort = new ArrayList<Bid>(bidsPlaced);
+			
+			Collections.sort(bidsPlacedToSort, new Comparator<Bid>() {
+				
+				@Override
+				public int compare(Bid bid1, Bid bid2) {
+					return bid1.getBidPrice().compareTo(bid2.getBidPrice());
+				}
+			});
+			
+			highestBid = bidsPlacedToSort.get(bidsPlacedToSort.size() - 1);
+		} 
 		
-		return bidsPlaced.get(bidsPlaced.size() - 1);
+		return highestBid;
 	}
 }
