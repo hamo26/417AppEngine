@@ -1,6 +1,7 @@
 package com.onlineauction.user.domain.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import com.onlineauction.auction.exception.HgException;
 import com.onlineauction.bid.domain.entity.Bid;
@@ -87,9 +88,11 @@ public class UserServiceImpl implements UserService {
 		
 		if (user.getBids() == null) {
 			user.setBids(new ArrayList<Bid>());
+			user.setAuctionsIds(new HashSet<Long>());
 		}
 		
 		user.getBids().add(bid);
+		user.getAuctionsIds().add(bid.getAuctionId());
 		
 		HgDataService.objectify()
 					 .save()

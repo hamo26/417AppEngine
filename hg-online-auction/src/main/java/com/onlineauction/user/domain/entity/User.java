@@ -1,6 +1,7 @@
 package com.onlineauction.user.domain.entity;
 
 import java.util.Collection;
+import java.util.Set;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -61,4 +62,8 @@ public class User {
 	@Getter
 	@Setter
 	Collection<Bid> bids;
+	
+	@Getter
+	@Setter
+	Set<Long> auctionsIds; 
 }

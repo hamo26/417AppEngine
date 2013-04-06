@@ -153,6 +153,7 @@ public class UserServiceImplTest {
 			Assert.assertTrue("the bids should only contain expected bid", userAfterBid.getBids().size() == 1);
 			Assert.assertEquals("The bid should be the same as expecgted", bid, 
 					userAfterBid.getBids().iterator().next());
+			Assert.assertTrue("The user should contain one auction id", userAfterBid.getAuctionsIds().contains(AUCTION_ID));
 		} catch (Exception e) {
 			fail("No exceptions should be thrown");
 		}
