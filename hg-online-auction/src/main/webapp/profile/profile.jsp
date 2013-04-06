@@ -34,14 +34,14 @@
 			<% if(!winningBids.isEmpty()){%>
 				<% for(Bid bid : winningBids){ %>
 						<div id="row">
-							<a href="/displayAuction" auctionId=<%=bid.getAuctionId() %>><%=bid.getItem().getName() %></a>
+							<a href="/displayAuction" auctionId="<%=bid.getItem().getName()%>"><%=bid.getItem().getName() %></a>
 						</div>
 				<% } %>
 			<% } %>
 			<% if(!losingBids.isEmpty()){%>
 				<% for(Bid bid : winningBids){ %>
 						<div id="row">
-							<a href="/displayAuction" auctionId=<%=bid.getAuctionId() %>><%=bid.getItem().getName() %></a>
+							<a href="/displayAuction" auctionId="<%=bid.getItem().getName()%>"><%=bid.getItem().getName() %></a>
 						</div>
 				<% } %>
 			<% } %>

@@ -28,7 +28,7 @@ public class OnlineAuctionDisplayAuctionServlet extends HttpServlet {
 	private AuctionService auctionService;
 
 	@Override
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 
 			
 			try {
