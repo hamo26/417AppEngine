@@ -1,6 +1,8 @@
 package com.onlineauction.auction.filter;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.inject.Singleton;
@@ -38,13 +40,36 @@ public class OnlineAuctionLoginFilter implements Filter {
 				null != httpRequest.getSession(false)
 				&& null != (String) httpRequest.getSession(false).getAttribute("userName")) {
 			log.info("continuing with chain");
+			
+			
+			String queryString = httpRequest.getQueryString();
+			if (queryString != null) {
+				Map<String, String> queryMap = getQueryMap(queryString);
+				req.setAttribute("queryMap", queryMap);
+				
+				log.info("The map contains: " + queryMap.toString());
+			}
+			
 			chain.doFilter(req, resp);
 		} else {
 			log.info("redirecting request to login");
 			httpServletResponse.sendRedirect("/loginAndRegistration/loginAndRegistrationForm.jsp");
 		}
 	}
-
+	
+	private static Map<String, String> getQueryMap(String query)  
+	{  
+	    String[] params = query.split("&");  
+	    Map<String, String> map = new HashMap<String, String>();  
+	    for (String param : params)  
+	    {  
+	        String name = param.split("=")[0];  
+	        String value = param.split("=")[1];  
+	        map.put(name, value);  
+	    }  
+	    return map;  
+	}  
+	
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 		// no-op
