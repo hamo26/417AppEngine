@@ -39,7 +39,7 @@ public class OnlineAuctionDisplayAuctionServlet extends HttpServlet {
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 			try {
 				
-				Long auctionId = Long.parseLong((String) req.getAttribute("auctionId"));
+				Long auctionId = (Long) req.getAttribute("auctionId");
 				log.info("auctionID: " + auctionId);
 				
 				
