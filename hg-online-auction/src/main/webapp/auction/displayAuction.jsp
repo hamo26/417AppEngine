@@ -1,5 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page import="com.onlineauction.auction.domain.entity.Auction"  %>
+<%@ page import="com.onlineauction.item.domain.entity.Item" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -23,14 +27,25 @@
 		<h2>HG AUCTION SHOW AUCTION</h2>
 	</div>
 	
-	<% Auction auction = (Auction)request.getAttribute("auction"); %>
-	<% if(auction != null) {%>
+	
+	<% if(request.getAttribute("validAuction") != null) {%>
 		<div id="auction">
 			<div>
-				<p>Auction was created!</p>
-				<!-- auction data -->
+				<h3><%=request.getAttribute("itemName") %></h3>
+				<p><%=request.getAttribute("itemDescription") %></p>
+				<p>Base Price: $<%=request.getAttribute("itemBasePrice") %></p>
 			</div>
-		</div>
+			<% if(request.getAttribute("maxBidPrice") != null){ %>
+				<div>
+					<p>Current Max Bid: $<%=request.getAttribute("maxBidPrice") %></p>
+					<p>By <%=request.getAttribute("maxBidUsername") %></p>
+				</div> 
+			<% } %>
+			<div>
+				<p>Start date: <%=request.getAttribute("startTime") %></p>
+				<p>Close date: <%=request.getAttribute("endTime") %></p>
+			</div>
+		</div> 
 	<%}else { %>
 		<div id="centered">
 			<p>Auction not found</p>

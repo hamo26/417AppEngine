@@ -3,6 +3,7 @@ package com.onlineauction.guice.servletmapping;
 import com.google.inject.servlet.ServletModule;
 import com.onlineauction.auction.servlet.OnlineAuctionCreateAuctionServlet;
 import com.onlineauction.auction.servlet.OnlineAuctionDeleteAuctionServlet;
+import com.onlineauction.auction.servlet.OnlineAuctionDisplayAuctionServlet;
 import com.onlineauction.auction.servlet.OnlineAuctionSearchAuctionsServlet;
 import com.onlineauction.cron.servlet.OnlineAuctionCleanupServlet;
 import com.onlineauction.user.servlet.OnlineAuctionLoginServlet;
@@ -20,5 +21,6 @@ public class ServletMappingsModule extends ServletModule {
 		serve("/createAuction").with(OnlineAuctionCreateAuctionServlet.class);
 		serve("/searchAuctions").with(OnlineAuctionSearchAuctionsServlet.class);
 		serve("/deleteAuction").with(OnlineAuctionDeleteAuctionServlet.class);
+		serve("/displayAuction").with(OnlineAuctionDisplayAuctionServlet.class);
 	}
 }

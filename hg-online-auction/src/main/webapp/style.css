@@ -1,7 +1,6 @@
 @CHARSET "UTF-8";
 #main {
-	position:absolute;
-	left:250px;
+	margin-left:250px;
 }
 
 #header {
@@ -108,5 +107,14 @@
 
 
 #auction {
-	
+	margin-left:250px;
+}
+#auction div{
+	margin-bottom:10px;
+}
+#auction div h3{
+	margin:0 0;
+}
+#auction div p{
+	margin:0 0;
 }

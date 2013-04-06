@@ -39,20 +39,21 @@ public class OnlineAuctionCreateAuctionServlet extends HttpServlet {
 		HttpSession session = req.getSession(false);
 		String userName = (String)session.getAttribute("userName");
 		try {
-			//TODO:add params to item
-			Item item = new Item();
+			String itemName = req.getParameter("itemName");
+			String itemDescription = req.getParameter("itemDescription");
+			Double itemBasePrice = Double.valueOf(req.getParameter("itemBasePrice"));
+			Item item = new Item(itemName, itemDescription, itemBasePrice);
+			
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mma");
 			String endTimeString = (String) req.getParameter("endTime");
 			Date endTime = sdf.parse(endTimeString);
+			
 			long auctionId = auctionService.createAuction(userName, item, endTime);
-			Auction auction = auctionService.getAuctionById(auctionId);
-			req.setAttribute("auction", auction);
-		} catch (HgException e) {
-			log.warning("Create auction failed");
+			req.setAttribute("auctionId", Long.toString(auctionId));
 		} catch (java.text.ParseException e){
 			log.warning("failed to parse date");
 		}
-		req.getRequestDispatcher("/auction/displayAuction.jsp").forward(req, resp);
+		req.getRequestDispatcher("/displayAuction").forward(req, resp);
 		
 	}
 }
