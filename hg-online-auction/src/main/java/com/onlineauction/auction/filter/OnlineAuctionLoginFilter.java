@@ -36,7 +36,8 @@ public class OnlineAuctionLoginFilter implements Filter {
 		log.info("Session during filter is: " + httpRequest.getSession(false));
 		
 		//I expect this to short circuit if the http session is null.
-		if (httpRequest.getRequestURI().startsWith("/login") || 
+		if (httpRequest.getRequestURI().startsWith("/loginAndRegistration") 
+				|| httpRequest.getRequestURI().startsWith("/register") ||
 				null != httpRequest.getSession(false)
 				&& null != (String) httpRequest.getSession(false).getAttribute("userName")) {
 			log.info("continuing with chain");

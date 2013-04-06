@@ -38,8 +38,11 @@ public class OnlineAuctionDisplayAuctionServlet extends HttpServlet {
 	
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 			try {
-				long auctionId = Long.parseLong((String) req.getAttribute("auctionId"));
-				log.info("auctionID: " + Long.toString(auctionId));
+				
+				Long auctionId = Long.parseLong((String) req.getAttribute("auctionId"));
+				log.info("auctionID: " + auctionId);
+				
+				
 				Auction auction = auctionService.getAuctionById(auctionId);
 				if(auction != null) {
 					Item item = auction.getAuctionItem();
