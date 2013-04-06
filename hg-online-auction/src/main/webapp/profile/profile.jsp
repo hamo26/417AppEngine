@@ -34,7 +34,7 @@
 			<% if(!winningBids.isEmpty()){%>
 				<% for(Bid bid : winningBids){ %>
 						<div id="row">
-							<a href="/displayAuction" auctionId="<%=bid.getItem().getName()%>"><%=bid.getItem().getName() %></a>
+							<a href="/displayAuction?auctionID=<%=bid.getItem().getName()%>"><%=bid.getItem().getName() %></a>
 						</div>
 				<% } %>
 			<% } %>
