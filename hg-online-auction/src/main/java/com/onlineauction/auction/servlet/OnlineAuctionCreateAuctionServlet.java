@@ -47,7 +47,7 @@ public class OnlineAuctionCreateAuctionServlet extends HttpServlet {
 			Date endTime = sdf.parse(endTimeString);
 			
 			long auctionId = auctionService.createAuction(userName, item, endTime);
-			req.setAttribute("auctionId", Long.toString(auctionId));
+			req.setAttribute("auctionId", auctionId);
 		} catch (java.text.ParseException e){
 			log.warning("failed to parse date");
 		}

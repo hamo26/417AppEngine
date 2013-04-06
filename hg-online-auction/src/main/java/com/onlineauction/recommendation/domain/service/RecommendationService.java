@@ -2,7 +2,6 @@ package com.onlineauction.recommendation.domain.service;
 
 import java.util.Collection;
 
-import com.onlineauction.auction.domain.entity.Auction;
 import com.onlineauction.auction.exception.HgException;
 
 public interface RecommendationService {
