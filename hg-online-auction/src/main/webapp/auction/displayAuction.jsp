@@ -18,7 +18,7 @@
 		<h2>Contents</h2>
 		<ul>
 		<li><a href="/home/auctionHome.jsp">Home</a></li>
-		<li><a href="/profile/profile.jsp">Profile</a></li>
+		<li><a href="/profile">Profile</a></li>
 		<li><a href="/auction/auctionSearch.jsp">Auction Search</a></li>
 		<li><a href="/auction/createAuctionForm.jsp">Create Auction</a></li>
 		<li><a href="/logout">Logout</a></li>
@@ -44,6 +44,15 @@
 			<div>
 				<p>Start date: <%=request.getAttribute("startTime") %></p>
 				<p>Close date: <%=request.getAttribute("endTime") %></p>
+			</div>
+			<div>
+				<form method="post" action="/placeBid">
+				<h3>Place bid?</h3>
+				<label for="bidValueInput">$</label>
+				<input id="bidValueInput" name="bidValue" type="text"/>
+				<input name="auctionId" type="hidden" value="<%=request.getAttribute("auctionId")%>"/>
+				<input type="submit" value="Submit"/>
+				</form>
 			</div>
 		</div> 
 	<%}else { %>

@@ -29,36 +29,42 @@ public class OnlineAuctionDisplayAuctionServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		try {
-			long auctionId = Long.parseLong((String)req.getAttribute("auctionId"));
-			log.info("auctionID: " + Long.toString(auctionId));
-			Auction auction = auctionService.getAuctionById(auctionId);
-		
-			if(auction != null) {
-				Item item = auction.getAuctionItem();
-				
-				req.setAttribute("itemName", item.getName());
-				req.setAttribute("itemDescription", item.getDescription());
-				req.setAttribute("itemBasePrice", item.getBasePrice());
-				
-				try{
-					Bid highestBid = auctionService.getHighestBidForAuction(auction.getId());
-					req.setAttribute("maxBidPrice", highestBid.getBidPrice());
-					req.setAttribute("maxBidUsername", highestBid.getUserId());
-				}catch(Exception e){
-					//no bids
+
+			
+			try {
+				long auctionId = (Long)req.getAttribute("auctionId");
+				log.info("auctionID: " + Long.toString(auctionId));
+				Auction auction = auctionService.getAuctionById(auctionId);
+				if(auction != null) {
+					Item item = auction.getAuctionItem();
+					
+					req.setAttribute("auctionId", Long.toString(auctionId));
+					req.setAttribute("itemName", item.getName());
+					req.setAttribute("itemDescription", item.getDescription());
+					req.setAttribute("itemBasePrice", item.getBasePrice());
+					
+					try{
+						Bid highestBid = auctionService.getHighestBidForAuction(auction.getId());
+						req.setAttribute("maxBidPrice", highestBid.getBidPrice());
+						req.setAttribute("maxBidUsername", highestBid.getUserId());
+					}catch(Exception e){
+						//no bids
+					}
+					
+					DateFormat df = new SimpleDateFormat("EEE MMM dd, yyyy 'at' hh:mma");
+					req.setAttribute("startTime", df.format(auction.getStartTime()));
+					req.setAttribute("endTime", df.format(auction.getEndTime()));
+					
+					log.info("valid auction. Displaying");
+					req.setAttribute("validAuction", "True");
 				}
-				
-				DateFormat df = new SimpleDateFormat("EEE MMM dd, yyyy 'at' hh:mma");
-				req.setAttribute("startTime", df.format(auction.getStartTime()));
-				req.setAttribute("endTime", df.format(auction.getEndTime()));
-				
-				log.info("valid auction. Displaying");
-				req.setAttribute("validAuction", "True");
+			} catch (HgException e1) {
+				// failed to get auction by id
+				e1.printStackTrace();
+			} catch (NumberFormatException e){
+				e.printStackTrace();
 			}
-		} catch (Exception e1) {
-			log.info("invalid auction");
-		}
+		
 		//forward some where.
 		req.getRequestDispatcher("/auction/displayAuction.jsp").forward(req, resp);
 		
