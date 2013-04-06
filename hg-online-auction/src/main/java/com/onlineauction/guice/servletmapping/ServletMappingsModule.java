@@ -1,6 +1,7 @@
 package com.onlineauction.guice.servletmapping;
 
 import com.google.inject.servlet.ServletModule;
+import com.onlineauction.auction.filter.OnlineAuctionLoginFilter;
 import com.onlineauction.auction.servlet.OnlineAuctionCreateAuctionServlet;
 import com.onlineauction.auction.servlet.OnlineAuctionDeleteAuctionServlet;
 import com.onlineauction.auction.servlet.OnlineAuctionDisplayAuctionServlet;
@@ -14,6 +15,8 @@ public class ServletMappingsModule extends ServletModule {
 
 	@Override
 	protected void configureServlets() {
+		filter("/*").through(OnlineAuctionLoginFilter.class);
+		
 		serve("/login").with(OnlineAuctionLoginServlet.class);
 		serve("/register").with(OnlineAuctionRegistrationServlet.class);
 		serve("/logout").with(OnlineAuctionLogoutServlet.class);
