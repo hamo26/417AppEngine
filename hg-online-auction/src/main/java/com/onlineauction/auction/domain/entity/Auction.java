@@ -42,6 +42,7 @@ public class Auction {
 	
 	@Getter
 	@NonNull
+	@Index
 	Item auctionItem;
 	
 	@Getter
