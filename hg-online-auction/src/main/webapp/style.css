@@ -60,11 +60,14 @@
 	margin-left:2px;
 }
 #lform input[type="submit"]{
-	margin-left:150px;
+	margin-left:152px;
 }
 #lform input[id="datepick"]{
 	margin-left:2px;
 	width:400px;
+}
+#lform option{
+	margin-left:152px;
 }
 
 #centered {
