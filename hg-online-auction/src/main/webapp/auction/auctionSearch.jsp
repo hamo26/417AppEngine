@@ -22,9 +22,9 @@
 	</ul></div>
 	<div id="lform">
 		<h2>HG AUCTION SEARCH AUCTION</h2>
-		<form method="get" action="/searchAuctions">
+		<form method="post" action="/searchAuctions">
 			<div>
-				<label for="searchTermInput" id="searchTerm">Item Name</label> 
+				<label for="searchTermInput" id="searchTerm">Search for</label> 
 				<input id="searchTermInput" name="searchTerm" type="text"/>
 			</div>
 			<div>
@@ -35,10 +35,11 @@
 				</select>
 			</div>
 			<div>
+				<label for="searchExpiredInput" id="searchExpired">Search</label>
 				<select id="searchExpiredInput" name="searchExpired">
-					<option value="ongoing">Search ongoing auctions</option>
-					<option value="expired">Only search expired auctions</option>
-					<option value="both">Search ongoing and expired auctions</option>
+					<option value="ongoing">ongoing auctions</option>
+					<option value="expired">expired auctions</option>
+					<option value="both">ongoing and expired auctions</option>
 				</select>
 			</div>
 			<div>
@@ -50,7 +51,7 @@
 	<% Iterable<Auction> auctionList = (Iterable<Auction>)request.getAttribute("auctionResults");%>
 	<% if(request.getAttribute("displayAuctions") != null){ %>
 		<div id="auctionlist">
-		<% if(auctionList != null){ %>
+		<% if(auctionList == null){ %>
 			<p>No matching auctions found</p>
 		<% } else{ %>
 			<% for(Auction auction : auctionList){ %>

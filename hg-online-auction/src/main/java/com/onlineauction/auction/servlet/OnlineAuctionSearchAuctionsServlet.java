@@ -25,12 +25,12 @@ public class OnlineAuctionSearchAuctionsServlet extends HttpServlet {
 
 	
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
-		String searchType = (String) req.getAttribute("searchType");
-		String searchTerm = (String) req.getAttribute("searchTerm");
-		String searchExpired = (String) req.getAttribute("searchExpired");
+		String searchType = (String) req.getParameter("searchType");
+		String searchTerm = (String) req.getParameter("searchTerm");
+		String searchExpired = (String) req.getParameter("searchExpired");
 		
 		log.info("Searching \"" + searchTerm + "\" " + searchType);
 		Collection<Auction> auctions;
