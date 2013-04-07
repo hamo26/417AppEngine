@@ -34,32 +34,26 @@ public class AuctionSearchServiceImpl implements AuctionSearchService {
 	@Override
 	public Collection<Auction> searchForExpiredAuctionsByDescription(
 			String description) {
-		Date currentDate = new Date();
-		
 		List<Auction> auctions = HgDataService.objectify()
 				 .load()
 				 .type(Auction.class)
 				 .filter("auctionItem.description >=", description)
 				 .filter("auctionItem.description <=", description + "\ufffd")
-				 .filter("endTime < ", currentDate)
 				 .list();
 		
-		return auctions;
+		return getExpiredAuctions(auctions);
 	}
 
 	@Override
 	public Collection<Auction> searchForExpiredAuctionsByName(String name) {
-		Date currentDate = new Date();
-		
 		List<Auction> auctions = HgDataService.objectify()
 				 .load()
 				 .type(Auction.class)
 				 .filter("auctionItem.name >=", name)
 				 .filter("auctionItem.name <=", name + "\ufffd")
-				 .filter("endTime < ", currentDate)
 				 .list();
 	
-		return auctions;
+		return getExpiredAuctions(auctions);
 	}
 
 	@Override
@@ -98,6 +92,19 @@ public class AuctionSearchServiceImpl implements AuctionSearchService {
 		}
 		
 		return cleanedAuctions;
+	}
+	
+	private Collection<Auction> getExpiredAuctions(final Collection<Auction> auctions) {
+		Collection<Auction> expiredAuctions = new ArrayList<Auction>();
+		
+		Date currentDate = new Date();
+		for (Auction auction : auctions) {
+			if (auction.getEndTime().before(currentDate)) {
+				expiredAuctions.add(auction);
+			}
+		}
+		
+		return expiredAuctions;
 	}
 
 }
