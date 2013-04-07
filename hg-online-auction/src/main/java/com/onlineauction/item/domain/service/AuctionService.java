@@ -67,6 +67,14 @@ public interface AuctionService {
 	Collection<Auction> getAuctionsCreatedByUser(String userId);
 	
 	/**
+	 * Gets all auctions a user has placed a bid on.
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	Collection<Auction> getAuctionUserHasBidOn(String userId) throws HgException;
+	
+	/**
 	 * Cleans up auctions that have ended.
 	 */
 	void cleanupAuctions();

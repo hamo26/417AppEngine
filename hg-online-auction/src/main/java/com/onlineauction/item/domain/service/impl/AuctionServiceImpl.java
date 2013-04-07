@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import com.google.inject.Inject;
@@ -14,6 +15,7 @@ import com.onlineauction.bid.domain.entity.Bid;
 import com.onlineauction.item.domain.entity.Item;
 import com.onlineauction.item.domain.service.AuctionService;
 import com.onlineauction.objectify.HgDataService;
+import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.domain.service.UserService;
 
 public class AuctionServiceImpl implements AuctionService {
@@ -137,5 +139,17 @@ public class AuctionServiceImpl implements AuctionService {
 		 .type(Auction.class)
 		 .filter("sellerId ==", userId)
 		 .list();
+	}
+
+	@Override
+	public Collection<Auction> getAuctionUserHasBidOn(String userId) throws HgException {
+		User user = userService.getUserByUserName(userId);
+		HashSet<Auction> auctions = new HashSet<Auction>();
+		
+		for (Bid bid : user.getBids()) {
+			auctions.add(getAuctionById(bid.getAuctionId()));
+		}
+		
+		return auctions;
 	}
 }
