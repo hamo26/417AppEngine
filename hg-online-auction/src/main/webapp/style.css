@@ -122,3 +122,13 @@
 #auctionlist {
 	margin-left:250px;
 }
+#auctionlist row{
+	margin-top:0;
+	margin-bottom:40;
+}
+#auctionlist a{
+	margin:0 0;
+}
+#auctionlist p{
+	margin:0 0;
+}

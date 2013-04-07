@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page import="com.onlineauction.auction.domain.entity.Auction"  %>
+<%@ page import="com.onlineauction.item.domain.entity.Item" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -29,7 +30,7 @@
 			<div>
 				<label for="searchTypeInput" id="searchType">Search </label>
 				<select id="searchTypeInput" name="searchType">
-					<option value="byType">By Type</option>
+					<option value="byType">By Item Name</option>
 					<option value="byDescription">By Description</option>
 				</select>
 			</div>
@@ -39,15 +40,22 @@
 		</form>
 	</div>
 
-	<% Iterable<Auction> auctionList = (Iterable<Auction>)request.getAttribute("auctionList");%>
+	<% Iterable<Auction> auctionList = (Iterable<Auction>)request.getAttribute("auctionResults");%>
 	
 	<% if(auctionList != null){ %>
 		<div id="auctionlist">
-		<% for(Auction auction : auctionList){ %>
-			<div>
-				<!--  what do we want to display? -->
+			<% for(Auction auction : auctionList){ %>
+			<% Item item =  auction.getAuctionItem();%>
+			<div id="row">
+				<a href="/displayAuction?auctionId=<%=auction.getId()%>"><%=item.getName() %></a>
+				<p><%=item.getDescription()%></p>
+				<% if(!auction.isOver()){ %>
+					<p>Done at <%=auction.getEndTime() %></p>
+				<% } else { %>
+					<p>Already done</p>
+				<% } %>
 			</div>
-		<% } %>
+			<% } %>
 		</div>
 	<% } %>
 </body>
