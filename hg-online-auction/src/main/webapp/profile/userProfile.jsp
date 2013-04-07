@@ -25,7 +25,7 @@
 		<li><a href="/logout">Logout</a></li>
 	</ul></div>
 	<div id="main">
-		<% long userId = Long.parseLong((String)request.getAttribute("userId")); %>
+		<% String userId = (String)request.getAttribute("userId"); %>
 		<h2>HG USER PROFILE</h2>
 		<p><%=userId %>'s Profile</p> 
 		<div>

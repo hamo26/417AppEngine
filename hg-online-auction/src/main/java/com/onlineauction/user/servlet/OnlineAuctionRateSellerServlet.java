@@ -49,6 +49,6 @@ public class OnlineAuctionRateSellerServlet extends HttpServlet {
 		}
 		
 		req.setAttribute("userId", userId);
-		req.getRequestDispatcher("/userProfile?userId=" + userId).forward(req, resp);
+		req.getRequestDispatcher("/userProfile").forward(req, resp);
 	}
 }

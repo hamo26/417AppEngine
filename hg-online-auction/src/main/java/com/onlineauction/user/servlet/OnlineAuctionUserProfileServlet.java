@@ -24,7 +24,17 @@ public class OnlineAuctionUserProfileServlet extends HttpServlet {
 	private UserService userService;
 	
 	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException, ServletException {
+		handleRequest(req, resp);
+	}
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException, ServletException {
+		handleRequest(req, resp);
+	}
+	
+	private void handleRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		String userId = (String) req.getAttribute("userId");
 		try {
