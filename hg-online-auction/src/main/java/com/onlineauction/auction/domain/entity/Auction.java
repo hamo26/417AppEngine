@@ -46,6 +46,7 @@ public class Auction {
 	
 	@Getter
 	@NonNull
+	@Index
 	String sellerId;
 	
 	@Getter

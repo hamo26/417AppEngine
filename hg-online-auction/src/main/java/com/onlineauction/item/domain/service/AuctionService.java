@@ -1,5 +1,6 @@
 package com.onlineauction.item.domain.service;
 
+import java.util.Collection;
 import java.util.Date;
 
 import com.onlineauction.auction.domain.entity.Auction;
@@ -56,6 +57,14 @@ public interface AuctionService {
 	 * @return
 	 */
 	Bid getHighestBidForAuction(long auctionId) throws HgException;
+	
+	/**
+	 * Get all auctions created by a user.
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	Collection<Auction> getAuctionsCreatedByUser(String userId);
 	
 	/**
 	 * Cleans up auctions that have ended.

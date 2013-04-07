@@ -129,4 +129,13 @@ public class AuctionServiceImpl implements AuctionService {
 		
 		return highestBid;
 	}
+
+	@Override
+	public Collection<Auction> getAuctionsCreatedByUser(String userId) {
+		return HgDataService.objectify()
+		 .load()
+		 .type(Auction.class)
+		 .filter("sellerId ==", userId)
+		 .list();
+	}
 }

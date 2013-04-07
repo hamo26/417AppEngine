@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.Collection;
 import java.util.Date;
 
 import junit.framework.Assert;
@@ -76,8 +77,7 @@ public class AuctionServiceImplTest {
 			
 			Thread.sleep(100);
 			
-			Auction createdAuction;
-			createdAuction = auctionService.getAuctionById(createdAuctionId);
+			Auction createdAuction = auctionService.getAuctionById(createdAuctionId);
 			assertEqualAuctions(expectedAuction, createdAuction);
 		} catch (HgException e) {
 			fail("Test should not fail");
@@ -182,6 +182,25 @@ public class AuctionServiceImplTest {
 			fail("The test should not throw an exception");
 		}
 	}
+	
+	/**
+		 * Test creating an auction.
+		 * @throws InterruptedException 
+		 */
+		@Test
+		public void testGetAuctionsCreatedByUser() throws InterruptedException {
+				Auction expectedAuction = new Auction(START_TIME, TEST_END_TIME, TEST_ITEM, TEST_USER_ID);
+				
+				auctionService.createAuction(TEST_USER_ID, TEST_ITEM, TEST_END_TIME);
+				
+				Thread.sleep(100);
+				
+				Collection<Auction> auctionCreatedByUser = auctionService.getAuctionsCreatedByUser(TEST_USER_ID);
+				
+				assertTrue("The collection should only have one element", auctionCreatedByUser.size() == 1); 
+				assertEqualAuctions(expectedAuction, auctionCreatedByUser.iterator().next());
+				
+		}
 	
 	private void assertEqualAuctions(Auction expectedAuction, Auction auction) {
 		Assert.assertEquals("The auction sellers should be equal", expectedAuction.getSellerId(), 
