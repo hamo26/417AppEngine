@@ -30,16 +30,40 @@ public class OnlineAuctionSearchAuctionsServlet extends HttpServlet {
 		
 		String searchType = (String) req.getAttribute("searchType");
 		String searchTerm = (String) req.getAttribute("searchTerm");
+		String searchExpired = (String) req.getAttribute("searchExpired");
 		
 		log.info("Searching \"" + searchTerm + "\" " + searchType);
 		Collection<Auction> auctions;
 		
 		if (searchType.equals("byDescription")) {
-			log.info("Searching for auctions by description with: " + searchTerm);
-			auctions = auctionSearchService.searchForAuctionsByDescription(searchTerm);
-		} else if(searchType.equals("byType")) {
-			log.info("Searching for auctions by name with: " + searchTerm);
-			auctions = auctionSearchService.searchForAuctionsByName(searchTerm);
+			if(searchExpired.equals("ongoing")){
+				log.info("Searching for ongoing auctions by description with: " + searchTerm);
+				auctions = auctionSearchService.searchForNonExpiredAuctionsByDescription(searchTerm);
+			} else if(searchExpired.equals("expired")){
+				log.info("Searching for expired auctions by description with: " + searchTerm);
+				auctions = auctionSearchService.searchForExpiredAuctionsByDescription(searchTerm);
+			} else if(searchExpired.equals("both")){
+				log.info("Searching for auctions by description with: " + searchTerm);
+				auctions = auctionSearchService.searchForAuctionsByDescription(searchTerm);
+			} else {
+				log.severe("invalid searchExpired");
+				auctions = null;
+			}
+			
+		} else if(searchType.equals("byName")) {
+			if(searchExpired.equals("ongoing")){
+				log.info("Searching for ongoing auctions by name with: " + searchTerm);
+				auctions = auctionSearchService.searchForNonExpiredAuctionsByName(searchTerm);
+			} else if(searchExpired.equals("expired")){
+				log.info("Searching for expired auctions by name with: " + searchTerm);
+				auctions = auctionSearchService.searchForExpiredAuctionsByName(searchTerm);
+			} else if(searchExpired.equals("both")){
+				log.info("Searching for auctions by name with: " + searchTerm);
+				auctions = auctionSearchService.searchForAuctionsByName(searchTerm);
+			} else {
+				log.severe("invalid searchExpired");
+				auctions = null;
+			}
 		} else {
 			auctions = null;
 			log.severe("invalid searchType");

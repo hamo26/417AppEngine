@@ -30,8 +30,15 @@
 			<div>
 				<label for="searchTypeInput" id="searchType">Search </label>
 				<select id="searchTypeInput" name="searchType">
-					<option value="byType">By Item Name</option>
+					<option value="byName">By Item Name</option>
 					<option value="byDescription">By Description</option>
+				</select>
+			</div>
+			<div>
+				<select id="searchExpiredInput" name="searchExpired">
+					<option value="ongoing">Search ongoing auctions</option>
+					<option value="expired">Only search expired auctions</option>
+					<option value="both">Search ongoing and expired auctions</option>
 				</select>
 			</div>
 			<div>
