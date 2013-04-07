@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.onlineauction.auction.domain.entity.Auction;
 import com.onlineauction.auction.exception.HgException;
 import com.onlineauction.auction.servlet.OnlineAuctionDeleteAuctionServlet;
 import com.onlineauction.bid.domain.entity.Bid;
@@ -40,27 +41,33 @@ public class OnlineAuctionProfileServlet extends HttpServlet {
 				User user = userService.getUserByUserName((String) session.getAttribute("userName"));
 				req.setAttribute("userName", user.getUserName());
 				String userId = user.getUserName();
-				Collection<Bid> bids = user.getBids();
-				Collection<Bid> winningBids = new ArrayList<Bid>();
-				Collection<Bid> losingBids = new ArrayList<Bid>();
-				if(bids != null){
-					for(Bid bid : bids){
-						//check if the highest bid is by the current user
-						try{
-							if(userId.equals(auctionService.getHighestBidForAuction(bid.getAuctionId()).getUserId())){
-								winningBids.add(bid);
-							}else{
-								losingBids.add(bid);
-							}
-						} catch (HgException e){
-							e.printStackTrace();
+				Collection<Auction> userAuctions = auctionService.getAuctionsCreatedByUser(userId);
+				Collection<Auction> bidAuctions = auctionService.getAuctionUserHasBidOn(userId);
+				Collection<Auction> winningBidAuctions = new ArrayList<Auction>();
+				Collection<Auction> losingBidAuctions = new ArrayList<Auction>();
+				Collection<Auction> wonBidAuctions = new ArrayList<Auction>();
+				Collection<Auction> lostBidAuctions = new ArrayList<Auction>();
+				for(Auction auction : bidAuctions){
+					if(auction.isOver()){
+						if(auctionService.getHighestBidForAuction(auction.getId()).getUserId().equals(userId)){
+							wonBidAuctions.add(auction);
+						} else{
+							lostBidAuctions.add(auction);
+						}
+					} else {
+						if(auctionService.getHighestBidForAuction(auction.getId()).getUserId().equals(userId)){
+							winningBidAuctions.add(auction);
+						} else{
+							losingBidAuctions.add(auction);
 						}
 					}
 				}
-				// need a way to get all the user's auctions Collection<Auction> auctions = auctionService;
 				
-				req.setAttribute("winningBids", winningBids);
-				req.setAttribute("losingBids", losingBids);
+				req.setAttribute("userAuctions", userAuctions);
+				req.setAttribute("winningBidAuctions", winningBidAuctions);
+				req.setAttribute("losingBidAuctions", losingBidAuctions);
+				req.setAttribute("wonBidAuctions", wonBidAuctions);
+				req.setAttribute("lostBidAuctions", lostBidAuctions);
 				log.info("Displaying profile");
 				req.getRequestDispatcher("/profile/profile.jsp").forward(req, resp);
 			} catch(HgException e){

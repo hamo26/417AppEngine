@@ -48,21 +48,24 @@
 	</div>
 
 	<% Iterable<Auction> auctionList = (Iterable<Auction>)request.getAttribute("auctionResults");%>
-	
-	<% if(auctionList != null){ %>
+	<% if(request.getAttribute("displayAuctions") != null){ %>
 		<div id="auctionlist">
+		<% if(auctionList != null){ %>
+			<p>No matching auctions found</p>
+		<% } else{ %>
 			<% for(Auction auction : auctionList){ %>
-			<% Item item =  auction.getAuctionItem();%>
-			<div id="row">
-				<a href="/displayAuction?auctionId=<%=auction.getId()%>"><%=item.getName() %></a>
-				<p><%=item.getDescription()%></p>
-				<% if(!auction.isOver()){ %>
-					<p>Done at <%=auction.getEndTime() %></p>
-				<% } else { %>
-					<p>Already done</p>
-				<% } %>
-			</div>
+				<% Item item =  auction.getAuctionItem();%>
+				<div id="row">
+					<a href="/displayAuction?auctionId=<%=auction.getId()%>"><%=item.getName() %></a>
+					<p><%=item.getDescription()%></p>
+					<% if(!auction.isOver()){ %>
+						<p>Done at <%=auction.getEndTime() %></p>
+					<% } else { %>
+						<p>Already done</p>
+					<% } %>
+				</div>
 			<% } %>
+		<% } %>
 		</div>
 	<% } %>
 </body>

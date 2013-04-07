@@ -32,19 +32,14 @@ public class OnlineAuctionRateSellerServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		
+		String userId = req.getParameter("userId");
 		try {
 			Integer rating = Integer.parseInt( (String) req.getParameter("ratingInput"));
 			String comment = (String) req.getParameter("ratingComment");
 			
-			long auctionId = Long.parseLong((String) req.getParameter("auctionId"));
-			req.setAttribute("auctionId", auctionId);
-			
-			Auction auction = auctionService.getAuctionById(auctionId);
-			
-			
-			userService.rateUser(auction.getSellerId(), new Rating(comment, rating, 
+			userService.rateUser(userId, new Rating(comment, rating, 
 					(String)req.getSession().getAttribute("userName"), new Date()));
+			log.info("sucessfully rated user");
 		} catch (HgException e) {
 			e.printStackTrace();
 			log.info("failed to place rating");
@@ -53,7 +48,7 @@ public class OnlineAuctionRateSellerServlet extends HttpServlet {
 			log.info("failed to place rating");
 		}
 		
-		
-		req.getRequestDispatcher("/displayAuction").forward(req, resp);
+		req.setAttribute("userId", userId);
+		req.getRequestDispatcher("/userProfile?userId=" + userId).forward(req, resp);
 	}
 }

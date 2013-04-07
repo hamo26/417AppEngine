@@ -45,6 +45,7 @@ public class OnlineAuctionDisplayAuctionServlet extends HttpServlet {
 					Item item = auction.getAuctionItem();
 					
 					req.setAttribute("auctionId", Long.toString(auctionId));
+					req.setAttribute("sellerId", auction.getSellerId());
 					req.setAttribute("itemName", item.getName());
 					req.setAttribute("itemDescription", item.getDescription());
 					req.setAttribute("itemBasePrice", item.getBasePrice());
@@ -61,6 +62,9 @@ public class OnlineAuctionDisplayAuctionServlet extends HttpServlet {
 					req.setAttribute("startTime", df.format(auction.getStartTime()));
 					req.setAttribute("endTime", df.format(auction.getEndTime()));
 					
+					if(auction.isOver()){
+						req.setAttribute("isOver", true);
+					}
 					log.info("valid auction. Displaying");
 					req.setAttribute("validAuction", "True");
 				}

@@ -34,64 +34,32 @@
 	%>
 	<div id="auction">
 		<div>
+			<a href="/userProfile?userId=<%=request.getAttribute("sellerId")%>"><%=request.getAttribute("sellerId") %></a>
 			<h3><%=request.getAttribute("itemName")%></h3>
 			<p><%=request.getAttribute("itemDescription")%></p>
-			<p>
-				Base Price: $<%=request.getAttribute("itemBasePrice")%></p>
+			<p>Base Price: $<%=request.getAttribute("itemBasePrice")%></p>
 		</div>
-		<%
-			if (request.getAttribute("maxBidPrice") != null) {
-		%>
+		<% if (request.getAttribute("maxBidPrice") != null) { %>
 		<div>
-			<p>
-				Current Max Bid: $<%=request.getAttribute("maxBidPrice")%></p>
-			<p>
-				By
-				<%=request.getAttribute("maxBidUsername")%></p>
+			<p>Current Max Bid: $<%=request.getAttribute("maxBidPrice")%></p>
+			<p>By<%=request.getAttribute("maxBidUsername")%></p>
 		</div>
-		<%
-			}
-		%>
+		<% } %>
 		<div>
-			<p>
-				Start date:
-				<%=request.getAttribute("startTime")%></p>
-			<p>
-				Close date:
-				<%=request.getAttribute("endTime")%></p>
+			<p> Start date: <%=request.getAttribute("startTime")%></p>
+			<p> Close date: <%=request.getAttribute("endTime")%></p>
 		</div>
-		<div>
-			<form method="post" action="/placeBid">
-				<h3>Place bid?</h3>
-				<label for="bidValueInput">$</label> <input id="bidValueInput"
-					name="bidValue" type="text" /> <input name="auctionId"
-					type="hidden" value="<%=request.getAttribute("auctionId")%>" /> <input
-					type="submit" value="Submit" />
-			</form>
-		</div>
-		<div>
-			<form method="post" action="/rateSeller">
-				<h3>Rate the seller?</h3>
-				<label for="oneStarInput">1</label> <input id="oneStarInput"
-					name="ratingInput" type="radio" value="1"/>
-				<label for="twoStarInput">2</label> <input id="twoStarInput"
-					name="ratingInput" type="radio" value="2"/>
-				<label for="threeStarInput">3</label> <input id="threeStarInput"
-					name="ratingInput" type="radio" value="3"/>
-				<label for="fourStarInput">4</label> <input id="fourStarInput"
-					name="ratingInput" type="radio" value="4"/>
-				<label for="fiveStarInput">5</label> <input id="fiveStarInput"
-					name="ratingInput" type="radio" value="5"/>
-				
-				<label for="ratingCommentInput">Comment</label> 
-				<textarea id="ratingCommentInput" name="ratingComment" rows="3"></textarea>
-				
-				<input name="auctionId"
-					type="hidden" value="<%=request.getAttribute("auctionId")%>" />
-					
-				<input type="submit" value="Submit" />
-			</form>
-		</div>
+		<% if(request.getAttribute("isOver") == null){ %>
+			<div>
+				<form method="post" action="/placeBid">
+					<h3>Place bid?</h3>
+					<label for="bidValueInput">$</label> <input id="bidValueInput"
+						name="bidValue" type="text" /> <input name="auctionId"
+						type="hidden" value="<%=request.getAttribute("auctionId")%>" /> <input
+						type="submit" value="Submit" />
+				</form>
+			</div>
+		<% } %>
 	</div>
 	<%
 		} else {

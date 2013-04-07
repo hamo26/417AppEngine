@@ -70,7 +70,7 @@ public class OnlineAuctionSearchAuctionsServlet extends HttpServlet {
 		}
 		
 		req.setAttribute("auctionResults", auctions);
-			
+		req.setAttribute("displayAuctions", "true");
 		req.getRequestDispatcher("/auction/auctionSearch.jsp").forward(req, resp);
 		
 	}
