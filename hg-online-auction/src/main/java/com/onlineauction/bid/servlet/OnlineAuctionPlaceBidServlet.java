@@ -47,17 +47,19 @@ public class OnlineAuctionPlaceBidServlet extends HttpServlet {
 				//One way of doing this is to set the following 
 				//error attribute after checking the post bid action status.
 				req.setAttribute("biddingError", Boolean.TRUE);
+				log.info("Bid places was not higher than max bid.");
 			} else {
+				auctionService.placeBidForAuction(bid, auctionId);
 				req.setAttribute("biddingError", Boolean.FALSE);
 			}
 			
-			auctionService.placeBidForAuction(bid, auctionId);
 			
 			req.setAttribute("auctionId", Long.toString(auctionId));
 		} catch(HgException e){
 			e.printStackTrace();
 			log.info("failed to place bid");
 		}
+
 		req.getRequestDispatcher("/displayAuction").forward(req, resp);
 		
 	}
