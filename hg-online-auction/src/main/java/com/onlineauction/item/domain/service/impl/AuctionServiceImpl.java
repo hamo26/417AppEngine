@@ -55,29 +55,6 @@ public class AuctionServiceImpl implements AuctionService {
 		return auction;
 	}
 
-	@Override
-	public Collection<Auction> searchForAuctionsByDescription(String descriptionSearchTerm) {
-		List<Auction> auctions = HgDataService.objectify()
-					 .load()
-					 .type(Auction.class)
-					 .filter("auctionItem.description >=", descriptionSearchTerm)
-					 .filter("auctionItem.description <=", descriptionSearchTerm + "\ufffd")
-					 .list();
-		
-		return removedExpiredAuctions(auctions);
-	}
-
-	@Override
-	public Collection<Auction> searchForAuctionsByName(String nameSearchTerm) {
-		List<Auction> auctions = HgDataService.objectify()
-				 .load()
-				 .type(Auction.class)
-				 .filter("auctionItem.name >=", nameSearchTerm)
-				 .filter("auctionItem.name <=", nameSearchTerm + "\ufffd")
-				 .list();
-	
-		return removedExpiredAuctions(auctions);
-	}
 	
 	@Override
 	public void placeBidForAuction(Bid bid, long auctionId) throws HgException{
@@ -112,19 +89,6 @@ public class AuctionServiceImpl implements AuctionService {
 					     .delete()
 					     .entities(auctions);
 		}
-	}
-	
-	private Collection<Auction> removedExpiredAuctions(final Collection<Auction> auctions) {
-		Collection<Auction> cleanedAuctions = new ArrayList<Auction>();
-		
-		Date currentDate = new Date();
-		for (Auction auction : auctions) {
-			if (auction.getEndTime().after(currentDate)) {
-				cleanedAuctions.add(auction);
-			}
-		}
-		
-		return cleanedAuctions;
 	}
 
 	@Override

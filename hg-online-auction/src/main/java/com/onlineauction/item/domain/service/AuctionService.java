@@ -1,6 +1,5 @@
 package com.onlineauction.item.domain.service;
 
-import java.util.Collection;
 import java.util.Date;
 
 import com.onlineauction.auction.domain.entity.Auction;
@@ -26,22 +25,6 @@ public interface AuctionService {
 	 * @return
 	 */
 	Auction getAuctionById(long auctionId) throws HgException; 
-	
-	/**
-	 * Search for auctions by description.
-	 * 
-	 * @param description
-	 * @return
-	 */
-	Collection<Auction> searchForAuctionsByDescription(String description);
-	
-	/**
-	 * Search for auctions name.
-	 * 
-	 * @param name 
-	 * @return
-	 */
-	Collection<Auction> searchForAuctionsByName(String name);
 	
 	/**
 	 * Place a bid for an auction.

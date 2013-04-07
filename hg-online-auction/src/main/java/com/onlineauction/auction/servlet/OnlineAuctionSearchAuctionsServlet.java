@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.onlineauction.auction.domain.entity.Auction;
-import com.onlineauction.item.domain.service.AuctionService;
+import com.onlineauction.item.domain.service.AuctionSearchService;
 
 @SuppressWarnings("serial")
 @Singleton
@@ -21,7 +21,7 @@ public class OnlineAuctionSearchAuctionsServlet extends HttpServlet {
 			.getLogger(OnlineAuctionSearchAuctionsServlet.class.getName());
 	
 	@Inject
-	private AuctionService auctionService;
+	private AuctionSearchService auctionSearchService;
 
 	
 	@Override
@@ -36,10 +36,10 @@ public class OnlineAuctionSearchAuctionsServlet extends HttpServlet {
 		
 		if (searchType.equals("byDescription")) {
 			log.info("Searching for auctions by description with: " + searchTerm);
-			auctions = auctionService.searchForAuctionsByDescription(searchTerm);
+			auctions = auctionSearchService.searchForAuctionsByDescription(searchTerm);
 		} else if(searchType.equals("byType")) {
 			log.info("Searching for auctions by name with: " + searchTerm);
-			auctions = auctionService.searchForAuctionsByName(searchTerm);
+			auctions = auctionSearchService.searchForAuctionsByName(searchTerm);
 		} else {
 			auctions = null;
 			log.severe("invalid searchType");
