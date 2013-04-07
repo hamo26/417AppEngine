@@ -52,4 +52,8 @@ public class Auction {
 	@Setter
 	@Embed
 	Collection<Bid> bidsPlaced;
+	
+	public boolean isOver(){
+		return (new Date()).after(this.endTime);
+	}
 }

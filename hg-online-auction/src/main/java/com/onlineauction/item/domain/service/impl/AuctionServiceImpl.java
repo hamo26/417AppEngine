@@ -140,7 +140,7 @@ public class AuctionServiceImpl implements AuctionService {
 	public Boolean isAuctionExpired(long auctionId) throws HgException {
 		Auction auction = getAuctionById(auctionId);
 		
-		return (new Date()).after(auction.getEndTime());
+		return auction.isOver();
 	}
 
 	@Override
