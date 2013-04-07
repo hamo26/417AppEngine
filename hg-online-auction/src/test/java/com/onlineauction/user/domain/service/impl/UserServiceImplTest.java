@@ -118,19 +118,38 @@ public class UserServiceImplTest {
 			
 			Date postingTime = new Date();
 			Rating rating = new Rating("testDescription", 1, user.getUserName(), postingTime);
-			Rating rating2 = new Rating("testDescription2", 1, user.getUserName(), postingTime);
 			
 			userService.rateUser(TEST_USER_NAME, rating);
-			userService.rateUser(TEST_USER_NAME, rating2);
 			
 			User retrievedUser = userService.getUserByUserName(TEST_USER_NAME);
 			
 			
-			Assert.assertEquals("The ratings cast should be same as expected", Arrays.asList(rating, rating2),
+			Assert.assertEquals("The ratings cast should be same as expected", Arrays.asList(rating),
 					retrievedUser.getRatings());
 		} catch (Exception e) {
 			fail("No exceptions should be thrown");
 		}
+	}
+	
+	@Test(expected = HgException.class)
+	public void tetRateUserWithMultipleRatings() throws InterruptedException, HgException {
+		User user = createUser();
+		userService.subscribeUser(user);
+		Thread.sleep(100);
+		
+		Date postingTime = new Date();
+		Rating rating = new Rating("testDescription", 1, user.getUserName(), postingTime);
+		Rating rating2 = new Rating("testDescription2", 1, "", postingTime);
+		
+		userService.rateUser(TEST_USER_NAME, rating);
+		Thread.sleep(100);
+		userService.rateUser(TEST_USER_NAME, rating2);
+		
+		User retrievedUser = userService.getUserByUserName(TEST_USER_NAME);
+		
+		
+		Assert.assertEquals("The ratings cast should be same as expected", Arrays.asList(rating, rating2),
+				retrievedUser.getRatings());
 	}
 	
 	@Test

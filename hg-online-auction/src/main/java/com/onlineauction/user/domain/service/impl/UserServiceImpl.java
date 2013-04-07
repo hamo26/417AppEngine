@@ -3,6 +3,7 @@ package com.onlineauction.user.domain.service.impl;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import com.onlineauction.auction.constants.HgConstants;
 import com.onlineauction.auction.exception.HgException;
 import com.onlineauction.bid.domain.entity.Bid;
 import com.onlineauction.objectify.HgDataService;
@@ -73,6 +74,12 @@ public class UserServiceImpl implements UserService {
 		
 		if (user.getRatings() == null) {
 			user.setRatings(new ArrayList<Rating>());
+		}
+		
+		for (Rating userRating : user.getRatings()) {
+			if (userRating.getUserName() == rating.getUserName()) {
+				throw new HgException(HgConstants.MULTIPLE_RATINGS_ERROR);
+			}
 		}
 		
 		user.getRatings().add(rating);
