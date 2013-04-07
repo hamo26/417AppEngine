@@ -21,10 +21,17 @@
 	</ul></div>
 	<div id="lform">
 		<h2>HG AUCTION SEARCH AUCTION</h2>
-		<form method="post" action="searchAuction">
+		<form method="get" action="/searchAuctions">
 			<div>
-				<label for="itemNameInput" id="itemName">Item Name</label> 
-				<input id="itemNameInput" name="itemName" type="text"/>
+				<label for="searchTermInput" id="searchTerm">Item Name</label> 
+				<input id="searchTermInput" name="searchTerm" type="text"/>
+			</div>
+			<div>
+				<label for="searchTypeInput" id="searchType">Search </label>
+				<select id="searchTypeInput" name="searchType">
+					<option value="byType">By Type</option>
+					<option value="byDescription">By Description</option>
+				</select>
 			</div>
 			<div>
 				<input type="submit" value="Submit"/>

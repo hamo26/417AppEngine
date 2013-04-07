@@ -34,19 +34,19 @@ public class OnlineAuctionLoginFilter implements Filter {
 		
 		log.info("Filtering uri request: " + httpRequest.getRequestURI());
 		log.info("Session during filter is: " + httpRequest.getSession(false));
-		
 		//I expect this to short circuit if the http session is null.
 		if (httpRequest.getRequestURI().startsWith("/login") || 
-				null != httpRequest.getSession(false)
-				&& null != (String) httpRequest.getSession(false).getAttribute("userName")) {
+				(null != httpRequest.getSession(false)
+				&& null != (String) httpRequest.getSession(false).getAttribute("userName"))) {
 			log.info("continuing with chain");
 			
 			
 			String queryString = httpRequest.getQueryString();
 			if (queryString != null) {
 				Map<String, String> queryMap = getQueryMap(queryString);
-				req.setAttribute("queryMap", queryMap);
-				
+				for(String key : queryMap.keySet()){
+					req.setAttribute(key, queryMap.get(key));
+				}
 				log.info("The map contains: " + queryMap.toString());
 			}
 			

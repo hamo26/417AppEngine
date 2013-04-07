@@ -25,25 +25,29 @@ public class OnlineAuctionSearchAuctionsServlet extends HttpServlet {
 
 	
 	@Override
-	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
 		String searchType = (String) req.getAttribute("searchType");
 		String searchTerm = (String) req.getAttribute("searchTerm");
 		
+		log.info("Searching \"" + searchTerm + "\" " + searchType);
 		Collection<Auction> auctions;
 		
-		if (searchType == "byDescription") {
+		if (searchType.equals("byDescription")) {
 			log.info("Searching for auctions by description with: " + searchTerm);
 			auctions = auctionService.searchForAuctionsByDescription(searchTerm);
-		} else {
+		} else if(searchType.equals("byType")) {
 			log.info("Searching for auctions by name with: " + searchTerm);
 			auctions = auctionService.searchForAuctionsByName(searchTerm);
+		} else {
+			auctions = null;
+			log.severe("invalid searchType");
 		}
 		
 		req.setAttribute("auctionResults", auctions);
 			
-		req.getRequestDispatcher("/auction/auctionSearchResults.jsp").forward(req, resp);
+		req.getRequestDispatcher("/auction/auctionSearch.jsp").forward(req, resp);
 		
 	}
 }
