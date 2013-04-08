@@ -25,7 +25,10 @@
 	</ul></div>
 	<div id="main">
 		<h2>HG USER PROFILE</h2>
-		<p>Hello <%=request.getSession().getAttribute("userName") %></p> 
+		<p>Hello <%=request.getSession().getAttribute("firstName") %> <%=request.getSession().getAttribute("lastName") %></p> 
+		<p>Username: <%=request.getSession().getAttribute("userName") %></p>
+		<p>Email: <%=request.getSession().getAttribute("email") %></p>
+		<p></p>
 	</div>
 	<% Collection<Auction> userAuctions =  (Collection<Auction>)request.getAttribute("userAuctions"); %>
 	<% Collection<Auction> winningBidAuctions =  (Collection<Auction>)request.getAttribute("winningBidAuctions"); %>
