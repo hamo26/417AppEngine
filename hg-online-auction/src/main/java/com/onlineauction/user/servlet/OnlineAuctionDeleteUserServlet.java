@@ -12,11 +12,15 @@ import javax.servlet.http.HttpSession;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.onlineauction.auction.exception.HgException;
-import com.onlineauction.auction.servlet.OnlineAuctionDeleteAuctionServlet;
 import com.onlineauction.item.domain.service.AuctionService;
-import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.domain.service.UserService;
 
+/**
+ * Servlet for deleting users.
+ * 
+ * @author hamo
+ *
+ */
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionDeleteUserServlet extends HttpServlet {

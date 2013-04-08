@@ -32,6 +32,12 @@ import com.onlineauction.user.domain.entity.UserType;
 import com.onlineauction.user.domain.service.UserService;
 import com.onlineauction.user.name.domain.service.UserNameService;
 
+/**
+ * Servlet for registering users.
+ * 
+ * @author hamo
+ *
+ */
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionRegistrationServlet extends HttpServlet {

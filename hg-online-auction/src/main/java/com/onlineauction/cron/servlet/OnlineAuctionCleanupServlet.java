@@ -12,6 +12,14 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.onlineauction.item.domain.service.AuctionService;
 
+/**
+ * Servlet called on by GAE quartz job and used to clean up expired auctions.
+ * 
+ * NOTE: This is currently not being used.
+ * 
+ * @author hamo
+ *
+ */
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionCleanupServlet extends HttpServlet {

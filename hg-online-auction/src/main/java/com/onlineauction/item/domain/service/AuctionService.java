@@ -8,6 +8,12 @@ import com.onlineauction.auction.exception.HgException;
 import com.onlineauction.bid.domain.entity.Bid;
 import com.onlineauction.item.domain.entity.Item;
 
+/**
+ * Auction service used to create, update, delete auctions (CRUD) as well as other useful functions.
+ * 
+ * @author hamo
+ *
+ */
 public interface AuctionService {
 
 	/**

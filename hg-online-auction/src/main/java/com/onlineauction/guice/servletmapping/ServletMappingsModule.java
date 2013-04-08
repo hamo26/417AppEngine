@@ -17,6 +17,12 @@ import com.onlineauction.user.servlet.OnlineAuctionRateSellerServlet;
 import com.onlineauction.user.servlet.OnlineAuctionRegistrationServlet;
 import com.onlineauction.user.servlet.OnlineAuctionUserProfileServlet;
 
+/**
+ * GUice configuration module used to specify URL to servlet mappings.
+ * 
+ * @author hamo
+ *
+ */
 public class ServletMappingsModule extends ServletModule {
 
 	@Override

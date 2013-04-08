@@ -17,6 +17,12 @@ import com.onlineauction.item.domain.service.AuctionService;
 import com.onlineauction.rating.domain.entity.Rating;
 import com.onlineauction.user.domain.service.UserService;
 
+/**
+ * Servlet for rating sellers.
+ * 
+ * @author hamo
+ *
+ */
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionRateSellerServlet extends HttpServlet {

@@ -4,6 +4,12 @@ import java.util.Collection;
 
 import com.onlineauction.auction.domain.entity.Auction;
 
+/**
+ * Servie to search for auctions.
+ * 
+ * @author hamo
+ *
+ */
 public interface AuctionSearchService {
 	
 	/**

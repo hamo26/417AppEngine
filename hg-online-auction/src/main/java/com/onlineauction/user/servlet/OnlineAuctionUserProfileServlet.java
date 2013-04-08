@@ -13,6 +13,12 @@ import com.onlineauction.auction.exception.HgException;
 import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.domain.service.UserService;
 
+/**
+ * Servlet for getting User's profile.
+ * 
+ * @author hamo
+ *
+ */
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionUserProfileServlet extends HttpServlet {

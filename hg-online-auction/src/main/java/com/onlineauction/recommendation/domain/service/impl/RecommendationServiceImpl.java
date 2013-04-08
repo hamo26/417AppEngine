@@ -16,6 +16,12 @@ import com.onlineauction.recommendation.domain.service.RecommendationService;
 import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.domain.service.UserService;
 
+/**
+ * Implementation of {@link RecommendationService}.
+ * 
+ * @author hamo
+ *
+ */
 public class RecommendationServiceImpl implements RecommendationService {
 	
 	@Inject

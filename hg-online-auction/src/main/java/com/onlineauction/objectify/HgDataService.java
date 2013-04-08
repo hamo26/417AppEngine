@@ -9,6 +9,12 @@ import com.onlineauction.item.domain.entity.Item;
 import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.name.domain.entity.UserName;
 
+/**
+ * Wrapper class for objectify services.
+ * 
+ * @author hamo
+ *
+ */
 public class HgDataService {
 
 		static {

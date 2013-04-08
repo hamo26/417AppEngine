@@ -20,6 +20,12 @@ import com.onlineauction.item.domain.service.AuctionService;
 import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.domain.service.UserService;
 
+/**
+ * Servlet for getting a user's profile.
+ * 
+ * @author hamo
+ *
+ */
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionProfileServlet extends HttpServlet {

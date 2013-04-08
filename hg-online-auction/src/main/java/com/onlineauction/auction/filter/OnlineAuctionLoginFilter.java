@@ -15,6 +15,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Servlet filter for all mappings used to ensure a user is logged in and to collect query parameters.
+ * 
+ * @author hamo
+ *
+ */
 @Singleton
 public class OnlineAuctionLoginFilter implements Filter {
 	private static final Logger log = Logger

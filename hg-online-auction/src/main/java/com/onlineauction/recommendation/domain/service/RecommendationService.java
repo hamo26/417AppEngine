@@ -4,6 +4,12 @@ import java.util.Collection;
 
 import com.onlineauction.auction.exception.HgException;
 
+/**
+ * Service for auction recommendations. 
+ * 
+ * @author hamo
+ *
+ */
 public interface RecommendationService {
 
 	/**

@@ -24,6 +24,12 @@ import com.onlineauction.item.domain.entity.Item;
 import com.onlineauction.item.domain.service.AuctionSearchService;
 import com.onlineauction.user.domain.service.UserService;
 
+/**
+ * Tests {@link AuctionSearchServiceImpl}.
+ * 
+ * @author hamo
+ *
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class AuctionSearchServiceImplTest {
 

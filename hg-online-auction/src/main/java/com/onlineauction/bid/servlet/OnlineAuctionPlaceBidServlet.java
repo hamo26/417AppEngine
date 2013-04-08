@@ -16,6 +16,12 @@ import com.onlineauction.item.domain.entity.Item;
 import com.onlineauction.item.domain.service.AuctionService;
 import com.onlineauction.user.domain.service.UserService;
 
+/**
+ * Servlet used to place bid for auction from jsp.
+ * 
+ * @author hamo
+ *
+ */
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionPlaceBidServlet extends HttpServlet {

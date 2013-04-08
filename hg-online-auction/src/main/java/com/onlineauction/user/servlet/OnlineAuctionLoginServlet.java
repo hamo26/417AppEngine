@@ -29,6 +29,12 @@ import com.google.inject.Singleton;
 import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.domain.service.UserService;
 
+/**
+ * Servlet for logging in.
+ * 
+ * @author hamo
+ *
+ */
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionLoginServlet extends HttpServlet {

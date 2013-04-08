@@ -6,7 +6,7 @@ import com.onlineauction.rating.domain.entity.Rating;
 import com.onlineauction.user.domain.entity.User;
 
 /**
- * User Service.
+ * Service to creating, updating and deleting (CRUD) users as well as other useful methods.
  * 
  * @author hamo26
  *

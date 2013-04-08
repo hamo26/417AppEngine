@@ -9,6 +9,12 @@ import com.onlineauction.auction.domain.entity.Auction;
 import com.onlineauction.item.domain.service.AuctionSearchService;
 import com.onlineauction.objectify.HgDataService;
 
+/**
+ * Implementation of {@link AuctionSearchService}.
+ * 
+ * @author hamo
+ *
+ */
 public class AuctionSearchServiceImpl implements AuctionSearchService {
 
 	@Override

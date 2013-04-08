@@ -10,6 +10,12 @@ import javax.servlet.http.HttpSession;
 
 import com.google.inject.Singleton;
 
+/**
+ * Servlet for logging out users.
+ * 
+ * @author hamo
+ *
+ */
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionLogoutServlet extends HttpServlet {

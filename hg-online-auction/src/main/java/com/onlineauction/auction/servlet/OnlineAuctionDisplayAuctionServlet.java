@@ -19,6 +19,12 @@ import com.onlineauction.bid.domain.entity.Bid;
 import com.onlineauction.item.domain.entity.Item;
 import com.onlineauction.item.domain.service.AuctionService;
 
+/**
+ * Servlet used to handle displaying auction information on jsp.
+ * 
+ * @author hamo
+ *
+ */
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionDisplayAuctionServlet extends HttpServlet {

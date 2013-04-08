@@ -17,6 +17,12 @@ import com.googlecode.objectify.annotation.Index;
 import com.onlineauction.bid.domain.entity.Bid;
 import com.onlineauction.item.domain.entity.Item;
 
+/**
+ * Auction Entity.
+ * 
+ * @author hamo
+ *
+ */
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor

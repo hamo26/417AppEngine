@@ -13,10 +13,17 @@ import javax.servlet.http.HttpSession;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.onlineauction.auction.domain.entity.Auction;
 import com.onlineauction.item.domain.entity.Item;
 import com.onlineauction.item.domain.service.AuctionService;
 import com.onlineauction.user.domain.service.UserService;
 
+/**
+ * Servlet used to handle jsp creation of {@link Auction}.
+ * 
+ * @author hamo
+ *
+ */
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionCreateAuctionServlet extends HttpServlet {

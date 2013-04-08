@@ -20,6 +20,12 @@ import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.domain.entity.UserType;
 import com.onlineauction.user.domain.service.UserService;
 
+/**
+ * Tests {@link UserServiceImpl}.
+ * 
+ * @author hamo
+ *
+ */
 public class UserServiceImplTest {
 
 	private static final Long AUCTION_ID = new Long(123);

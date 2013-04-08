@@ -14,6 +14,12 @@ import com.google.inject.Singleton;
 import com.onlineauction.auction.domain.entity.Auction;
 import com.onlineauction.item.domain.service.AuctionSearchService;
 
+/**
+ * Servlet used to handle searching for auction from jsp.
+ * 
+ * @author hamo
+ *
+ */
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionSearchAuctionsServlet extends HttpServlet {
