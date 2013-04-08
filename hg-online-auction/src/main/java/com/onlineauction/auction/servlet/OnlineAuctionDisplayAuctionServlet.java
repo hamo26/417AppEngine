@@ -49,7 +49,9 @@ public class OnlineAuctionDisplayAuctionServlet extends HttpServlet {
 					req.setAttribute("itemName", item.getName());
 					req.setAttribute("itemDescription", item.getDescription());
 					req.setAttribute("itemBasePrice", item.getBasePrice());
-					
+					if(!auction.getIsValid()){
+						req.setAttribute("invalidated", "true");
+					}
 					try{
 						Bid highestBid = auctionService.getHighestBidForAuction(auction.getId());
 						req.setAttribute("maxBidPrice", highestBid.getBidPrice());

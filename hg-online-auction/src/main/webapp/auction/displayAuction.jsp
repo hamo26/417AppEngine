@@ -34,6 +34,9 @@
 	%>
 	<div id="auction">
 		<div>
+			<% if(request.getAttribute("invalidated") != null){ %>
+				<p>THIS AUCTION WAS STOPPED BY THE USER</p>
+			<% } %>
 			<a href="/userProfile?userId=<%=request.getAttribute("sellerId")%>"><%=request.getAttribute("sellerId") %></a>
 			<h3><%=request.getAttribute("itemName")%></h3>
 			<p><%=request.getAttribute("itemDescription")%></p>
@@ -49,17 +52,27 @@
 			<p> Start date: <%=request.getAttribute("startTime")%></p>
 			<p> Close date: <%=request.getAttribute("endTime")%></p>
 		</div>
-		<% if(request.getAttribute("isOver") == null && 
-				!((String)request.getAttribute("sellerId")).equals((String)request.getSession().getAttribute("userName"))){ %>
-			<div>
-				<form method="post" action="/placeBid">
-					<h3>Place bid?</h3>
-					<label for="bidValueInput">$</label> <input id="bidValueInput"
-						name="bidValue" type="text" /> <input name="auctionId"
-						type="hidden" value="<%=request.getAttribute("auctionId")%>" /> <input
-						type="submit" value="Submit" />
-				</form>
-			</div>
+		<% if(request.getAttribute("invalidated") == null){ %>
+			<% if(((String)request.getAttribute("sellerId")).equals((String)request.getSession().getAttribute("userName"))){ %>
+				<div>
+					<form method="post" action="/invalidateAuction">
+						<input type="hidden" name="auctionId" value="<%=request.getAttribute("auctionId") %>"/>
+						<input type="submit" value="Invalidate Auction"/>
+					</form>
+				</div>
+			<% } else{ %>
+				<% if(request.getAttribute("isOver") == null){ %>
+					<div>
+						<form method="post" action="/placeBid">
+							<h3>Place bid?</h3>
+							<label for="bidValueInput">$</label> <input id="bidValueInput"
+								name="bidValue" type="text" /> <input name="auctionId"
+								type="hidden" value="<%=request.getAttribute("auctionId")%>" /> <input
+								type="submit" value="Submit" />
+						</form>
+					</div>
+				<% } %>
+			<% } %>
 		<% } %>
 	</div>
 	<%

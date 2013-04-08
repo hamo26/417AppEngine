@@ -32,7 +32,7 @@
 	<% Collection<Auction> losingBidAuctions =  (Collection<Auction>)request.getAttribute("losingBidAuctions"); %>
 	<% Collection<Auction> wonBidAuctions =  (Collection<Auction>)request.getAttribute("wonBidAuctions"); %>
 	<% Collection<Auction> lostBidAuctions =  (Collection<Auction>)request.getAttribute("lostBidAuctions"); %>
-	
+	<% Collection<Auction> invalidatedBidAuctions =  (Collection<Auction>)request.getAttribute("invalidatedBidAuctions"); %>
 	<% if(!winningBidAuctions.isEmpty()){ %>
 		<div id="auctionlist">
 			<p>You're winning the bid on the following auctions:</p>
@@ -87,6 +87,19 @@
 		</div>
 	<% } %>
 	
+	<% if(!invalidatedBidAuctions.isEmpty()){ %>
+		<div id="auctionlist">
+			<p>You've bid on the following deleted auctions:</p>
+			<% for(Auction auction : invalidatedBidAuctions){ %>
+				<%Item item = auction.getAuctionItem();%>
+				<div id="row">
+					<a href="/displayAuction?auctionId=<%=auction.getId()%>"><%=item.getName() %></a>
+					<p><%=item.getDescription()%></p>
+				</div>
+			<% } %>
+		</div>
+	<% } %>
+	
 	<% if(!userAuctions.isEmpty()){ %>
 		<div id="auctionlist">
 			<p>You've created the following auctions:</p>
@@ -104,12 +117,14 @@
 			<% } %>
 		</div>
 	<% } %>
+	
+	
 	<div id="lform">
 		<p>Delete your profile?</p>
 		<form method="post" action="/unsubscribeUser">
 			<div id="row">
 				<label for="confirmCheckbox" id="confirm">Are you sure?</label>
-				<input id="confirmCheckbox" type="checkbox" name="confirm"/>
+				<input id="confirmCheckbox" type="checkbox" name="confirm" value="true"/>
 			</div><div id="row">
 				<input type="submit" value="Delete Profile"/>
 			</div>

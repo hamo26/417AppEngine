@@ -57,7 +57,8 @@ public class OnlineAuctionRegistrationServlet extends HttpServlet {
 			try{
 				
 				if (!userNameService.isUserNameValidForRegistration(userName)) {
-					//Alert the user of his username being invalid.
+					req.setAttribute("message", "Username already taken");
+					req.getRequestDispatcher("loginAndRegistration/failedRegister.jsp").forward(req, resp);
 				} else {
 
 					User newUser = new User(userName, UserType.BUYER, firstName, lastName, password, email);
@@ -70,6 +71,7 @@ public class OnlineAuctionRegistrationServlet extends HttpServlet {
 					req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
 				}
 			} catch(Exception e){
+				e.printStackTrace();
 				try{
 					userService.getUserByUserName(userName);
 					req.setAttribute("message", "Username already taken");

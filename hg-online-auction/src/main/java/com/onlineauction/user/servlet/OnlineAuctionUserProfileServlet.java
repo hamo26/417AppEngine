@@ -36,6 +36,7 @@ public class OnlineAuctionUserProfileServlet extends HttpServlet {
 		try {
 			User user = userService.getUserByUserName(userId);
 			req.setAttribute("ratings", user.getRatings());
+			req.setAttribute("validUser", "true");
 		} catch (HgException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -33,8 +33,14 @@ public class OnlineAuctionProfileServlet extends HttpServlet {
 	private UserService userService;
 
 	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		processRequest(req, resp);
+	}
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		
+		processRequest(req, resp);
+	}
+	public void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 			try{
 				HttpSession session = req.getSession();
 				User user = userService.getUserByUserName((String) session.getAttribute("userName"));
@@ -46,19 +52,24 @@ public class OnlineAuctionProfileServlet extends HttpServlet {
 				Collection<Auction> losingBidAuctions = new ArrayList<Auction>();
 				Collection<Auction> wonBidAuctions = new ArrayList<Auction>();
 				Collection<Auction> lostBidAuctions = new ArrayList<Auction>();
+				Collection<Auction> invalidatedBidAuctions = new ArrayList<Auction>();
 				for(Auction auction : bidAuctions){
-					if(auction.isOver()){
-						if(auctionService.getHighestBidForAuction(auction.getId()).getUserId().equals(userId)){
-							wonBidAuctions.add(auction);
-						} else{
-							lostBidAuctions.add(auction);
+					if(auction.getIsValid()){
+						if(auction.isOver()){
+							if(auctionService.getHighestBidForAuction(auction.getId()).getUserId().equals(userId)){
+								wonBidAuctions.add(auction);
+							} else{
+								lostBidAuctions.add(auction);
+							}
+						} else {
+							if(auctionService.getHighestBidForAuction(auction.getId()).getUserId().equals(userId)){
+								winningBidAuctions.add(auction);
+							} else{
+								losingBidAuctions.add(auction);
+							}
 						}
-					} else {
-						if(auctionService.getHighestBidForAuction(auction.getId()).getUserId().equals(userId)){
-							winningBidAuctions.add(auction);
-						} else{
-							losingBidAuctions.add(auction);
-						}
+					} else{
+						invalidatedBidAuctions.add(auction);
 					}
 				}
 				
@@ -67,6 +78,7 @@ public class OnlineAuctionProfileServlet extends HttpServlet {
 				req.setAttribute("losingBidAuctions", losingBidAuctions);
 				req.setAttribute("wonBidAuctions", wonBidAuctions);
 				req.setAttribute("lostBidAuctions", lostBidAuctions);
+				req.setAttribute("invalidatedBidAuctions", invalidatedBidAuctions);
 				log.info("Displaying profile");
 				req.getRequestDispatcher("/profile/profile.jsp").forward(req, resp);
 			} catch(HgException e){

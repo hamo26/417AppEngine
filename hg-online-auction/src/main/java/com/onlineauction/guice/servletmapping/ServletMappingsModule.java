@@ -5,6 +5,7 @@ import com.onlineauction.auction.filter.OnlineAuctionLoginFilter;
 import com.onlineauction.auction.servlet.OnlineAuctionCreateAuctionServlet;
 import com.onlineauction.auction.servlet.OnlineAuctionDeleteAuctionServlet;
 import com.onlineauction.auction.servlet.OnlineAuctionDisplayAuctionServlet;
+import com.onlineauction.auction.servlet.OnlineAuctionInvalidateAuctionServlet;
 import com.onlineauction.auction.servlet.OnlineAuctionSearchAuctionsServlet;
 import com.onlineauction.bid.servlet.OnlineAuctionPlaceBidServlet;
 import com.onlineauction.cron.servlet.OnlineAuctionCleanupServlet;
@@ -35,5 +36,6 @@ public class ServletMappingsModule extends ServletModule {
 		serve("/rateSeller").with(OnlineAuctionRateSellerServlet.class);
 		serve("/userProfile").with(OnlineAuctionUserProfileServlet.class);
 		serve("/unsubscribeUser").with(OnlineAuctionDeleteUserServlet.class);
+		serve("/invalidateAuction").with(OnlineAuctionInvalidateAuctionServlet.class);
 	}
 }
