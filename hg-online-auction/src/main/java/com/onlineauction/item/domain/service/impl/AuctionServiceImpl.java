@@ -18,6 +18,12 @@ import com.onlineauction.objectify.HgDataService;
 import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.domain.service.UserService;
 
+/**
+ * Implementation of {@link AuctionService}.
+ * 
+ * @author hamo
+ *
+ */
 public class AuctionServiceImpl implements AuctionService {
 	
 	private UserService userService;

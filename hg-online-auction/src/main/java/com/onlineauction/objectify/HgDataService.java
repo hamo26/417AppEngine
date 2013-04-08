@@ -7,6 +7,7 @@ import com.onlineauction.auction.domain.entity.Auction;
 import com.onlineauction.bid.domain.entity.Bid;
 import com.onlineauction.item.domain.entity.Item;
 import com.onlineauction.user.domain.entity.User;
+import com.onlineauction.user.name.domain.entity.UserName;
 
 public class HgDataService {
 
@@ -16,6 +17,7 @@ public class HgDataService {
 			factory().register(Item.class);
 			factory().register(Bid.class);
 			factory().register(Auction.class);
+			factory().register(UserName.class);
 		}
 		
 		public static Objectify objectify() {
