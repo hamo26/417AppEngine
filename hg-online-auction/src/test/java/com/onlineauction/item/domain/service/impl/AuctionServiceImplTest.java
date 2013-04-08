@@ -247,7 +247,7 @@ public class AuctionServiceImplTest {
 			Mockito.when(userService.getUserByUserName(TEST_USER_ID)).thenReturn(testUser);
 			
 			Collection<Auction> auctionCreatedByUser = auctionService
-					.getAuctionUserHasBidOn(TEST_USER_ID);
+					.getAuctionsUserHasBidOn(TEST_USER_ID);
 			
 			assertTrue("The collection should only have one element",
 					auctionCreatedByUser.size() == 1);

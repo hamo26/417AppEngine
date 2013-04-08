@@ -72,7 +72,7 @@ public interface AuctionService {
 	 * @param userId
 	 * @return
 	 */
-	Collection<Auction> getAuctionUserHasBidOn(String userId) throws HgException;
+	Collection<Auction> getAuctionsUserHasBidOn(String userId) throws HgException;
 	
 	/**
 	 * Cleans up auctions that have ended.

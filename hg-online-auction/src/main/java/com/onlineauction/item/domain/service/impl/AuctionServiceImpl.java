@@ -142,12 +142,14 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 	@Override
-	public Collection<Auction> getAuctionUserHasBidOn(String userId) throws HgException {
+	public Collection<Auction> getAuctionsUserHasBidOn(String userId) throws HgException {
 		User user = userService.getUserByUserName(userId);
 		HashSet<Auction> auctions = new HashSet<Auction>();
-		
-		for (Bid bid : user.getBids()) {
-			auctions.add(getAuctionById(bid.getAuctionId()));
+
+		if (user.getBids() != null) {
+			for (Bid bid : user.getBids()) {
+				auctions.add(getAuctionById(bid.getAuctionId()));
+			}
 		}
 		
 		return auctions;

@@ -8,6 +8,7 @@ import com.onlineauction.auction.servlet.OnlineAuctionDisplayAuctionServlet;
 import com.onlineauction.auction.servlet.OnlineAuctionSearchAuctionsServlet;
 import com.onlineauction.bid.servlet.OnlineAuctionPlaceBidServlet;
 import com.onlineauction.cron.servlet.OnlineAuctionCleanupServlet;
+import com.onlineauction.user.servlet.OnlineAuctionDeleteUserServlet;
 import com.onlineauction.user.servlet.OnlineAuctionLoginServlet;
 import com.onlineauction.user.servlet.OnlineAuctionLogoutServlet;
 import com.onlineauction.user.servlet.OnlineAuctionProfileServlet;
@@ -33,5 +34,6 @@ public class ServletMappingsModule extends ServletModule {
 		serve("/placeBid").with(OnlineAuctionPlaceBidServlet.class);
 		serve("/rateSeller").with(OnlineAuctionRateSellerServlet.class);
 		serve("/userProfile").with(OnlineAuctionUserProfileServlet.class);
+		serve("/unsubscribeUser").with(OnlineAuctionDeleteUserServlet.class);
 	}
 }

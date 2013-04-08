@@ -16,7 +16,6 @@ import com.google.inject.Singleton;
 import com.onlineauction.auction.domain.entity.Auction;
 import com.onlineauction.auction.exception.HgException;
 import com.onlineauction.auction.servlet.OnlineAuctionDeleteAuctionServlet;
-import com.onlineauction.bid.domain.entity.Bid;
 import com.onlineauction.item.domain.service.AuctionService;
 import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.domain.service.UserService;
@@ -42,7 +41,7 @@ public class OnlineAuctionProfileServlet extends HttpServlet {
 				req.setAttribute("userName", user.getUserName());
 				String userId = user.getUserName();
 				Collection<Auction> userAuctions = auctionService.getAuctionsCreatedByUser(userId);
-				Collection<Auction> bidAuctions = auctionService.getAuctionUserHasBidOn(userId);
+				Collection<Auction> bidAuctions = auctionService.getAuctionsUserHasBidOn(userId);
 				Collection<Auction> winningBidAuctions = new ArrayList<Auction>();
 				Collection<Auction> losingBidAuctions = new ArrayList<Auction>();
 				Collection<Auction> wonBidAuctions = new ArrayList<Auction>();

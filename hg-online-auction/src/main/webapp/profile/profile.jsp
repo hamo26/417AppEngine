@@ -104,5 +104,13 @@
 			<% } %>
 		</div>
 	<% } %>
+	<div id="Delete Profile">
+		<p>Delete Your Profile?</p>
+		<form method="post" action="/unsubscribeUser">
+			<div id="row">
+				<input type="submit" value="Delete Profile"/>
+			</div>
+		</form>
+	</div>
 </body>
 </html>
