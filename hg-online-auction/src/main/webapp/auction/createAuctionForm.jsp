@@ -22,6 +22,22 @@
 	</ul></div>
 	<div id="lform">
 		<h2>HG AUCTION CREATE AUCTION</h2>
+		<errorlist>
+			<% if(request.getAttribute("createError") != null){ %>
+			<div>
+				<p>Error creating auction. Could not be created because:</p>
+				<% if(request.getAttribute("itemNameError") != null){ %>
+					<p>Invalid item name</p>
+				<% } %>
+				<% if(request.getAttribute("basePriceError") != null){ %>
+					<p>Invalid base price</p>
+				<% } %>
+				<% if(request.getAttribute("endTimeError") != null){ %>
+					<p>Invalid end time</p>
+				<% } %>
+			</div>
+			<% } %>
+		</errorlist>
 		<form method="post" action="/createAuction">
 			<div id="row">
 				<label for="itemNameInput" id="itemName">Item Name</label> 

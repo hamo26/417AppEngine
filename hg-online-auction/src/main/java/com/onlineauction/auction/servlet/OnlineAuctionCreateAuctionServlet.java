@@ -1,6 +1,7 @@
 package com.onlineauction.auction.servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -36,22 +37,48 @@ public class OnlineAuctionCreateAuctionServlet extends HttpServlet {
 			throws IOException, ServletException {
 		HttpSession session = req.getSession(false);
 		String userName = (String)session.getAttribute("userName");
+		
+		String itemName = req.getParameter("itemName");
+		String itemDescription = req.getParameter("itemDescription");
+		String itemBasePriceString = req.getParameter("itemBasePrice");
+		String endTimeString = (String) req.getParameter("endTime");
+		
+		Item item;
+		Double itemBasePrice = 0.0;
+		Date endTime = null;
+		boolean success = true;
+		
+		if(itemName.isEmpty()){
+			req.setAttribute("itemNameError", "true");
+			success = false;
+		}
+		
+		try{
+			itemBasePrice = Double.valueOf(itemBasePriceString);
+		} catch(NumberFormatException e){
+			//invalid base price
+			req.setAttribute("basePriceError", "true");
+			success = false;
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mma");
 		try {
-			String itemName = req.getParameter("itemName");
-			String itemDescription = req.getParameter("itemDescription");
-			Double itemBasePrice = Double.valueOf(req.getParameter("itemBasePrice"));
-			Item item = new Item(itemName, itemDescription, itemBasePrice);
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mma");
-			String endTimeString = (String) req.getParameter("endTime");
-			Date endTime = sdf.parse(endTimeString);
-			
+			endTime = sdf.parse(endTimeString);
+		} catch (ParseException e) {
+			//invalid end time
+			req.setAttribute("endTimeError", "true");
+			success = false;
+		}
+		if(success){
+			item = new Item(itemName, itemDescription, itemBasePrice);
 			long auctionId = auctionService.createAuction(userName, item, endTime);
 			req.setAttribute("auctionId", Long.toString(auctionId));
-		} catch (java.text.ParseException e){
-			log.warning("failed to parse date");
+			req.getRequestDispatcher("/displayAuction").forward(req, resp);
+		} else{
+			req.setAttribute("createError", "true");
+			req.getRequestDispatcher("/auction/createAuctionForm.jsp").forward(req, resp);
 		}
-		req.getRequestDispatcher("/displayAuction").forward(req, resp);
+		
 		
 	}
 }
