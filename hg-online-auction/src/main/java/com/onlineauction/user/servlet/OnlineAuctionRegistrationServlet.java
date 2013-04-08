@@ -30,6 +30,7 @@ import com.google.inject.Singleton;
 import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.domain.entity.UserType;
 import com.onlineauction.user.domain.service.UserService;
+import com.onlineauction.user.name.domain.service.UserNameService;
 
 @SuppressWarnings("serial")
 @Singleton
@@ -39,6 +40,9 @@ public class OnlineAuctionRegistrationServlet extends HttpServlet {
 	
 	@Inject
 	private UserService userService;
+	
+	@Inject
+	private UserNameService userNameService;
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -51,14 +55,20 @@ public class OnlineAuctionRegistrationServlet extends HttpServlet {
 		String email = req.getParameter("email");
 		if(password.equals(retypedPassword)){
 			try{
-				User newUser = new User(userName, UserType.BUYER, firstName, lastName, password, email);
 				
-				userService.subscribeUser(newUser);
-				
-				log.info("Subscribed user with username: " + userName);
-				HttpSession session = req.getSession(true);
-				session.setAttribute("userName", newUser.getUserName());
-				req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
+				if (!userNameService.isUserNameValidForRegistration(userName)) {
+					//Alert the user of his username being invalid.
+				} else {
+
+					User newUser = new User(userName, UserType.BUYER, firstName, lastName, password, email);
+					userNameService.addUserName(userName);
+					userService.subscribeUser(newUser);
+					
+					log.info("Subscribed user with username: " + userName);
+					HttpSession session = req.getSession(true);
+					session.setAttribute("userName", newUser.getUserName());
+					req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
+				}
 			} catch(Exception e){
 				try{
 					userService.getUserByUserName(userName);

@@ -23,6 +23,7 @@ public class OnlineAuctionCreateAuctionServlet extends HttpServlet {
 	
 	@Inject
 	private UserService userService;
+	
 	@Inject
 	private AuctionService auctionService;
 

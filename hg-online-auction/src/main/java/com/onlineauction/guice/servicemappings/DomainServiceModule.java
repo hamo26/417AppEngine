@@ -9,6 +9,8 @@ import com.onlineauction.recommendation.domain.service.RecommendationService;
 import com.onlineauction.recommendation.domain.service.impl.RecommendationServiceImpl;
 import com.onlineauction.user.domain.service.UserService;
 import com.onlineauction.user.domain.service.impl.UserServiceImpl;
+import com.onlineauction.user.name.domain.service.UserNameService;
+import com.onlineauction.user.name.domain.service.impl.UserNameServiceImpl;
 
 /**
  * This class specifies domain service mappings.
@@ -24,5 +26,6 @@ public class DomainServiceModule extends AbstractModule {
 		bind(AuctionService.class).to(AuctionServiceImpl.class);
 		bind(RecommendationService.class).to(RecommendationServiceImpl.class);
 		bind(AuctionSearchService.class).to(AuctionSearchServiceImpl.class);
+		bind(UserNameService.class).to(UserNameServiceImpl.class);
 	}
 }

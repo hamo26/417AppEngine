@@ -105,6 +105,4 @@ public class UserServiceImpl implements UserService {
 					 .save()
 					 .entity(user);
 	}
-	
-	
 }
