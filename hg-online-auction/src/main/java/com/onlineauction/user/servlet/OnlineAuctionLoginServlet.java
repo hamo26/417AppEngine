@@ -52,8 +52,8 @@ public class OnlineAuctionLoginServlet extends HttpServlet {
 			session.setAttribute("lastName", user.getLastName());
 			session.setAttribute("email", user.getEmail());
 			req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
-		} catch (HgException e) {
-			req.getRequestDispatcher("loginAndRegistration/loginAndRegistrationForm.jsp").forward(req, resp);
+		} catch (Exception e) {
+			req.getRequestDispatcher("loginAndRegistration/failedLogin.jsp").forward(req, resp);
 		}
 		
 		

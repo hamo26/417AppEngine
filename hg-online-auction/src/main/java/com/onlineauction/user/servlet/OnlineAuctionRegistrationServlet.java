@@ -45,17 +45,32 @@ public class OnlineAuctionRegistrationServlet extends HttpServlet {
 			throws IOException, ServletException {
 		String userName = req.getParameter("userName");
 		String password = req.getParameter("password");
+		String retypedPassword = req.getParameter("retypedPassword");
 		String firstName = req.getParameter("firstName");
 		String lastName = req.getParameter("lastName");
 		String email = req.getParameter("email");
-		
-		User newUser = new User(userName, UserType.BUYER, firstName, lastName, password, email);
-		
-		userService.subscribeUser(newUser);
-		
-		log.info("Subscribed user with username: " + userName);
-		HttpSession session = req.getSession(true);
-		session.setAttribute("userName", newUser.getUserName());
-		req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
+		if(password.equals(retypedPassword)){
+			try{
+				User newUser = new User(userName, UserType.BUYER, firstName, lastName, password, email);
+				
+				userService.subscribeUser(newUser);
+				
+				log.info("Subscribed user with username: " + userName);
+				HttpSession session = req.getSession(true);
+				session.setAttribute("userName", newUser.getUserName());
+				req.getRequestDispatcher("home/auctionHome.jsp").forward(req, resp);
+			} catch(Exception e){
+				try{
+					userService.getUserByUserName(userName);
+					req.setAttribute("message", "Username already taken");
+				} catch(Exception e2){
+					req.setAttribute("message", "Please fill out the registration form correctly");
+				}
+				req.getRequestDispatcher("loginAndRegistration/failedRegister.jsp").forward(req, resp);
+			}
+		} else{
+			req.setAttribute("message", "Passwords didn't match");
+			req.getRequestDispatcher("loginAndRegistration/failedRegister.jsp").forward(req, resp);
+		}
 	}
 }
