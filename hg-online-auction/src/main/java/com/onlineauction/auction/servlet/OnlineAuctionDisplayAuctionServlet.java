@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -18,6 +20,7 @@ import com.onlineauction.auction.exception.HgException;
 import com.onlineauction.bid.domain.entity.Bid;
 import com.onlineauction.item.domain.entity.Item;
 import com.onlineauction.item.domain.service.AuctionService;
+import com.onlineauction.recommendation.domain.service.RecommendationService;
 
 /**
  * Servlet used to handle displaying auction information on jsp.
@@ -34,6 +37,9 @@ public class OnlineAuctionDisplayAuctionServlet extends HttpServlet {
 	@Inject
 	private AuctionService auctionService;
 
+	@Inject
+	private RecommendationService recommendationService;
+	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		processRequest(req, resp);
@@ -52,7 +58,21 @@ public class OnlineAuctionDisplayAuctionServlet extends HttpServlet {
 					Item item = auction.getAuctionItem();
 					DecimalFormat decFormat = new DecimalFormat("0.00");
 					decFormat.setGroupingUsed(false);
-					
+					Collection<Auction> recAuctions = new ArrayList<Auction>();
+					try{
+						Collection<Long> recIds = recommendationService.getAuctionRecommendations(auctionId, 2);
+						try{
+						for(long recId : recIds){
+							recAuctions.add(auctionService.getAuctionById(recId));
+						}
+						} catch(Exception e){
+							e.printStackTrace();
+						}
+					} catch(Exception e){
+						//probably no bids
+						e.printStackTrace();
+					}
+					req.setAttribute("recAuctions", recAuctions);
 					req.setAttribute("auctionId", Long.toString(auctionId));
 					req.setAttribute("sellerId", auction.getSellerId());
 					req.setAttribute("itemName", item.getName());

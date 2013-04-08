@@ -3,6 +3,7 @@
 <%@ page import="com.onlineauction.item.domain.entity.Item"%>
 <%@ page import="java.util.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Collection" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -45,7 +46,7 @@
 		<% if (request.getAttribute("maxBidPrice") != null) { %>
 		<div>
 			<p>Current Max Bid: $<%=request.getAttribute("maxBidPrice")%></p>
-			<p>By<%=request.getAttribute("maxBidUsername")%></p>
+			<p>By <%=request.getAttribute("maxBidUsername")%></p>
 		</div>
 		<% } %>
 		<div>
@@ -75,6 +76,24 @@
 			<% } %>
 		<% } %>
 	</div>
+	<% Collection<Auction> recAuctions = (Collection<Auction>)request.getAttribute("recAuctions"); %>
+	<% if(!recAuctions.isEmpty()){ %>
+		<div id="auctionlist">
+			<p>You also might be interested in:</p>
+			<% for(Auction auction : recAuctions){ %>
+				<%Item item = auction.getAuctionItem();%>
+				<div id="row">
+					<a href="/displayAuction?auctionId=<%=auction.getId()%>"><%=item.getName() %></a>
+					<p><%=item.getDescription()%></p>
+					<% if(!auction.isOver()){ %>
+						<p>Done at <%=auction.getEndTime() %></p>
+					<% } else { %>
+						<p>Already done</p>
+					<% } %>
+				</div>
+			<% } %>
+		</div>
+	<% } %>
 	<%
 		} else {
 	%>
