@@ -99,6 +99,14 @@ public interface AuctionService {
 	void deleteUserBidsFromAuctions(String userId) throws HgException;
 	
 	/**
+	 * Invalidate all auctions created by a user.
+	 * 
+	 * @param userId
+	 * @throws HgException
+	 */
+	void invalidateAuctionsCreatedByUser(String userId) throws HgException;
+	
+	/**
 	 * Cleans up auctions that have ended.
 	 */
 	void cleanupAuctions();
