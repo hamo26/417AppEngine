@@ -75,6 +75,30 @@ public interface AuctionService {
 	Collection<Auction> getAuctionsUserHasBidOn(String userId) throws HgException;
 	
 	/**
+	 * Invalidate an auction.
+	 * 
+	 * @param auctionId
+	 * @throws HgException
+	 */
+	void invalidateAuction(long auctionId) throws HgException;
+	
+	/**
+	 * Checks to see whether an auction is valid.
+	 * 
+	 * @param auctionId
+	 * @return
+	 */
+	Boolean isAuctionValid(long auctionId) throws HgException;
+	
+	/**
+	 * Delete all user bids from an auction. 
+	 * Bids from users who have been deleted should not be displayed on auction.
+	 * 
+	 * @param userId
+	 */
+	void deleteUserBidsFromAuctions(String userId) throws HgException;
+	
+	/**
 	 * Cleans up auctions that have ended.
 	 */
 	void cleanupAuctions();

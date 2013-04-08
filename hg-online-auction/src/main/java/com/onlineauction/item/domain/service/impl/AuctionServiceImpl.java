@@ -30,7 +30,7 @@ public class AuctionServiceImpl implements AuctionService {
 	@Override
 	public long createAuction(String userId, Item item, Date endTime) {
 		
-		Auction auction = new Auction(new Date(), endTime, item, userId);
+		Auction auction = new Auction(new Date(), endTime, item, userId, Boolean.TRUE);
 		
 		HgDataService.objectify()
 					 .save()
@@ -62,6 +62,9 @@ public class AuctionServiceImpl implements AuctionService {
 	public void placeBidForAuction(Bid bid, long auctionId) throws HgException{
 		Auction auctionById = getAuctionById(auctionId);
 		
+		if (!auctionById.getIsValid()) {
+			throw new HgException("Auction is invalid");
+		}
 		if (auctionById.getBidsPlaced() == null) {
 			auctionById.setBidsPlaced(new ArrayList<Bid>());
 		}
@@ -153,5 +156,43 @@ public class AuctionServiceImpl implements AuctionService {
 		}
 		
 		return auctions;
+	}
+
+	@Override
+	public Boolean isAuctionValid(long auctionId) throws HgException {
+		Auction auction = getAuctionById(auctionId);
+		
+		return auction.getIsValid();
+	}
+
+	@Override
+	public void invalidateAuction(long auctionId) throws HgException {
+		Auction auction = getAuctionById(auctionId);
+		
+		auction.setIsValid(Boolean.FALSE);
+		
+		HgDataService.objectify()
+		 			 .save()
+		 			 .entity(auction)
+		 			 .now();
+	}
+
+	@Override
+	public void deleteUserBidsFromAuctions(String userId) throws HgException {
+		User user = userService.getUserByUserName(userId);
+		
+		if (user.getBids() != null) {
+			for (Bid bid : user.getBids()) {
+				try {
+					Auction auction = getAuctionById(bid.getAuctionId());
+					if (auction.getIsValid()) {
+						auction.getBidsPlaced().remove(bid);
+					}
+				} catch (HgException e) {
+					//If an auction was not found for the bid id. Continue and disregard.
+					//The auction may have been deleted.
+				}
+			}
+		}
 	}
 }

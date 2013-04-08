@@ -75,7 +75,7 @@ public class AuctionServiceImplTest {
 	public void testCreateAuction() throws InterruptedException {
 		try {
 			Auction expectedAuction = new Auction(START_TIME, TEST_END_TIME,
-					TEST_ITEM, TEST_USER_ID);
+					TEST_ITEM, TEST_USER_ID, Boolean.TRUE);
 
 			long createdAuctionId = auctionService.createAuction(TEST_USER_ID,
 					TEST_ITEM, TEST_END_TIME);
@@ -114,7 +114,7 @@ public class AuctionServiceImplTest {
 	@Test(expected = HgException.class)
 	public void testCleanupAuctions() throws InterruptedException, HgException {
 		Auction auctionToBeDeleted = new Auction(START_TIME, TEST_END_TIME,
-				TEST_ITEM, TEST_USER_ID);
+				TEST_ITEM, TEST_USER_ID, Boolean.TRUE);
 		long auctionToBeDeletedId = auctionService.createAuction(TEST_USER_ID,
 				TEST_ITEM, TEST_END_TIME);
 
@@ -210,7 +210,7 @@ public class AuctionServiceImplTest {
 	@Test
 	public void testGetAuctionsCreatedByUser() throws InterruptedException {
 		Auction expectedAuction = new Auction(START_TIME, TEST_END_TIME,
-				TEST_ITEM, TEST_USER_ID);
+				TEST_ITEM, TEST_USER_ID, Boolean.TRUE);
 
 		auctionService.createAuction(TEST_USER_ID, TEST_ITEM, TEST_END_TIME);
 
@@ -235,7 +235,7 @@ public class AuctionServiceImplTest {
 	public void testGetAuctionsUserHasBidOn() throws InterruptedException {
 		try {
 			Auction expectedAuction = new Auction(START_TIME, TEST_END_TIME,
-					TEST_ITEM, TEST_USER_ID);
+					TEST_ITEM, TEST_USER_ID, Boolean.TRUE);
 			
 			long auctionId = auctionService.createAuction(TEST_USER_ID, TEST_ITEM, TEST_END_TIME);
 			

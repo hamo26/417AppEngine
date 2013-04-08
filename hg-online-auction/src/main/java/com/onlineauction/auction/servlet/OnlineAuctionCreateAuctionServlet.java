@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,14 +16,10 @@ import com.google.inject.Singleton;
 import com.onlineauction.item.domain.entity.Item;
 import com.onlineauction.item.domain.service.AuctionService;
 import com.onlineauction.user.domain.service.UserService;
-import com.onlineauction.user.servlet.OnlineAuctionRegistrationServlet;
 
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionCreateAuctionServlet extends HttpServlet {
-	private static final Logger log = Logger
-			.getLogger(OnlineAuctionRegistrationServlet.class.getName());
-	
 	
 	@Inject
 	private UserService userService;

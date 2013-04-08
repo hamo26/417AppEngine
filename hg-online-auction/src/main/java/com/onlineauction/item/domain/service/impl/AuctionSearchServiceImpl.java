@@ -13,22 +13,26 @@ public class AuctionSearchServiceImpl implements AuctionSearchService {
 
 	@Override
 	public Collection<Auction> searchForAuctionsByDescription(String description) {
-		return HgDataService.objectify()
+		List<Auction> auctions = HgDataService.objectify()
 				 .load()
 				 .type(Auction.class)
 				 .filter("auctionItem.description >=", description)
 				 .filter("auctionItem.description <=", description + "\ufffd")
 				 .list();
+		
+		return getValidAuctions(auctions);
 	}
 
 	@Override
 	public Collection<Auction> searchForAuctionsByName(String name) {
-		return HgDataService.objectify()
+		List<Auction> auctions = HgDataService.objectify()
 				 .load()
 				 .type(Auction.class)
 				 .filter("auctionItem.name >=", name)
 				 .filter("auctionItem.name <=", name + "\ufffd")
 				 .list();
+		
+		return getValidAuctions(auctions);
 	}
 
 	@Override
@@ -41,7 +45,8 @@ public class AuctionSearchServiceImpl implements AuctionSearchService {
 				 .filter("auctionItem.description <=", description + "\ufffd")
 				 .list();
 		
-		return getExpiredAuctions(auctions);
+		Collection<Auction> expiredAuctions = getExpiredAuctions(auctions);
+		return getValidAuctions(expiredAuctions);
 	}
 
 	@Override
@@ -53,7 +58,8 @@ public class AuctionSearchServiceImpl implements AuctionSearchService {
 				 .filter("auctionItem.name <=", name + "\ufffd")
 				 .list();
 	
-		return getExpiredAuctions(auctions);
+		Collection<Auction> expiredAuctions = getExpiredAuctions(auctions);
+		return getValidAuctions(expiredAuctions);
 	}
 
 	@Override
@@ -66,7 +72,8 @@ public class AuctionSearchServiceImpl implements AuctionSearchService {
 				 .filter("auctionItem.description <=", description + "\ufffd")
 				 .list();
 	
-		return removedExpiredAuctions(auctions);
+		Collection<Auction> nonExpiredAuctions = removedExpiredAuctions(auctions);
+		return getValidAuctions(nonExpiredAuctions);
 	}
 
 	@Override
@@ -78,7 +85,8 @@ public class AuctionSearchServiceImpl implements AuctionSearchService {
 				 .filter("auctionItem.name <=", name + "\ufffd")
 				 .list();
 	
-		return removedExpiredAuctions(auctions);
+		Collection<Auction> nonExpiredAuctions = removedExpiredAuctions(auctions);
+		return getValidAuctions(nonExpiredAuctions);
 	}
 	
 	private Collection<Auction> removedExpiredAuctions(final Collection<Auction> auctions) {
@@ -106,5 +114,16 @@ public class AuctionSearchServiceImpl implements AuctionSearchService {
 		
 		return expiredAuctions;
 	}
-
+	
+	private Collection<Auction> getValidAuctions(final Collection<Auction> auctions) {
+		Collection<Auction> validAuctions = new ArrayList<Auction>();
+		
+		for (Auction auction : auctions) {
+			if (auction.getIsValid()) {
+				validAuctions.add(auction);
+			}
+		}
+		
+		return validAuctions;
+	}
 }

@@ -26,7 +26,6 @@ import javax.servlet.http.HttpSession;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.onlineauction.auction.exception.HgException;
 import com.onlineauction.user.domain.entity.User;
 import com.onlineauction.user.domain.service.UserService;
 

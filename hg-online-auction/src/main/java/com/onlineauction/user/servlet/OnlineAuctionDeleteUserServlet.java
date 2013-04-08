@@ -11,14 +11,19 @@ import javax.servlet.http.HttpSession;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.onlineauction.auction.exception.HgException;
+import com.onlineauction.item.domain.service.AuctionService;
 import com.onlineauction.user.domain.service.UserService;
 
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionDeleteUserServlet extends HttpServlet {
+	
 	@Inject
 	private UserService userService;
-
+	
+	@Inject
+	private AuctionService auctionService;
+	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		HttpSession session = req.getSession(false);
@@ -26,6 +31,7 @@ public class OnlineAuctionDeleteUserServlet extends HttpServlet {
 		String userName = (String) session.getAttribute("userName");
 		
 		try {
+			auctionService.deleteUserBidsFromAuctions(userName);
 			userService.deleteUser(userName);
 			session.invalidate();
 		} catch (HgException e) {
