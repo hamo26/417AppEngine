@@ -45,7 +45,7 @@ public class RecommendationServiceImpl implements RecommendationService {
 				User bidUser = userService.getUserByUserName(bid.getUserId());
 				for (Bid userBid : bidUser.getBids()) {
 					Long userBidAuctionId = userBid.getAuctionId();
-					if (auctionService.isAuctionValid(userBidAuctionId)) {
+					if (auctionService.isAuctionValid(userBidAuctionId) && userBidAuctionId != auctionId) {
 						if (auctionRecommendationMap.containsKey(userBidAuctionId)) {
 							Integer userBidAuctionIdCount = auctionRecommendationMap.get(userBidAuctionId);
 							auctionRecommendationMap.put(userBidAuctionId, userBidAuctionIdCount++);
@@ -60,7 +60,7 @@ public class RecommendationServiceImpl implements RecommendationService {
 			}
 		}
 		
-		ArrayList<Integer> recomendationMapValues = (ArrayList<Integer>) auctionRecommendationMap.values();
+		ArrayList<Integer> recomendationMapValues = new ArrayList<Integer>(auctionRecommendationMap.values());
 		
 		if (recomendationMapValues.isEmpty()) {
 			//No recommendations to provide.

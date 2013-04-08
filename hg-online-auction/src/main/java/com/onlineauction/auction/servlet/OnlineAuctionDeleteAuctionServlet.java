@@ -13,6 +13,12 @@ import com.google.inject.Singleton;
 import com.onlineauction.auction.exception.HgException;
 import com.onlineauction.item.domain.service.AuctionService;
 
+/**
+ * Servlet used to handle deletion of auction from jsp.
+ * s
+ * @author hamo
+ *
+ */
 @SuppressWarnings("serial")
 @Singleton
 public class OnlineAuctionDeleteAuctionServlet extends HttpServlet {
