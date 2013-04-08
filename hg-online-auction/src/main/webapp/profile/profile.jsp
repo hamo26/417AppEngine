@@ -104,10 +104,13 @@
 			<% } %>
 		</div>
 	<% } %>
-	<div id="Delete Profile">
-		<p>Delete Your Profile?</p>
+	<div id="lform">
+		<p>Delete your profile?</p>
 		<form method="post" action="/unsubscribeUser">
 			<div id="row">
+				<label for="confirmCheckbox" id="confirm">Are you sure?</label>
+				<input id="confirmCheckbox" type="checkbox" name="confirm"/>
+			</div><div id="row">
 				<input type="submit" value="Delete Profile"/>
 			</div>
 		</form>

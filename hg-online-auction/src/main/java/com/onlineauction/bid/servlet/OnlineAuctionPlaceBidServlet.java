@@ -55,7 +55,7 @@ public class OnlineAuctionPlaceBidServlet extends HttpServlet {
 			
 			
 			req.setAttribute("auctionId", Long.toString(auctionId));
-		} catch(HgException e){
+		} catch(Exception e){
 			e.printStackTrace();
 			log.info("failed to place bid");
 		}

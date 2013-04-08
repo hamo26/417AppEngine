@@ -49,7 +49,8 @@
 			<p> Start date: <%=request.getAttribute("startTime")%></p>
 			<p> Close date: <%=request.getAttribute("endTime")%></p>
 		</div>
-		<% if(request.getAttribute("isOver") == null){ %>
+		<% if(request.getAttribute("isOver") == null && 
+				!((String)request.getAttribute("sellerId")).equals((String)request.getSession().getAttribute("userName"))){ %>
 			<div>
 				<form method="post" action="/placeBid">
 					<h3>Place bid?</h3>
