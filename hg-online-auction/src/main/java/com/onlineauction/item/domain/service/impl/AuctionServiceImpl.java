@@ -201,13 +201,15 @@ public class AuctionServiceImpl implements AuctionService {
 			throws HgException {
 		Collection<Auction> auctionsCreatedByUser = getAuctionsCreatedByUser(userId);
 		
-		for (Auction auction : auctionsCreatedByUser) {
-			auction.setIsValid(Boolean.FALSE);
+		if (!auctionsCreatedByUser.isEmpty()) {
+			for (Auction auction : auctionsCreatedByUser) {
+				auction.setIsValid(Boolean.FALSE);
+			}
+			
+			HgDataService.objectify()
+			.save()
+			.entities(auctionsCreatedByUser)
+			.now();
 		}
-		
-		HgDataService.objectify()
-					 .save()
-					 .entities(auctionsCreatedByUser)
-					 .now();
 	}
 }
