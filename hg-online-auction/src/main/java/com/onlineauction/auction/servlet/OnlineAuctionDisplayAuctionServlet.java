@@ -2,6 +2,7 @@ package com.onlineauction.auction.servlet;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
 
@@ -43,18 +44,20 @@ public class OnlineAuctionDisplayAuctionServlet extends HttpServlet {
 				Auction auction = auctionService.getAuctionById(auctionId);
 				if(auction != null) {
 					Item item = auction.getAuctionItem();
+					DecimalFormat decFormat = new DecimalFormat("0.00");
+					decFormat.setGroupingUsed(false);
 					
 					req.setAttribute("auctionId", Long.toString(auctionId));
 					req.setAttribute("sellerId", auction.getSellerId());
 					req.setAttribute("itemName", item.getName());
 					req.setAttribute("itemDescription", item.getDescription());
-					req.setAttribute("itemBasePrice", item.getBasePrice());
+					req.setAttribute("itemBasePrice", decFormat.format(item.getBasePrice()));
 					if(!auction.getIsValid()){
 						req.setAttribute("invalidated", "true");
 					}
 					try{
 						Bid highestBid = auctionService.getHighestBidForAuction(auction.getId());
-						req.setAttribute("maxBidPrice", highestBid.getBidPrice());
+						req.setAttribute("maxBidPrice", decFormat.format(highestBid.getBidPrice()));
 						req.setAttribute("maxBidUsername", highestBid.getUserId());
 					}catch(Exception e){
 						//no bids
