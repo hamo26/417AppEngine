@@ -45,11 +45,13 @@ public class RecommendationServiceImpl implements RecommendationService {
 				User bidUser = userService.getUserByUserName(bid.getUserId());
 				for (Bid userBid : bidUser.getBids()) {
 					Long userBidAuctionId = userBid.getAuctionId();
-					if (auctionRecommendationMap.containsKey(userBidAuctionId)) {
-						Integer userBidAuctionIdCount = auctionRecommendationMap.get(userBidAuctionId);
-						auctionRecommendationMap.put(userBidAuctionId, userBidAuctionIdCount++);
-					} else {
-						auctionRecommendationMap.put(userBidAuctionId, 1);
+					if (auctionService.isAuctionValid(userBidAuctionId)) {
+						if (auctionRecommendationMap.containsKey(userBidAuctionId)) {
+							Integer userBidAuctionIdCount = auctionRecommendationMap.get(userBidAuctionId);
+							auctionRecommendationMap.put(userBidAuctionId, userBidAuctionIdCount++);
+						} else {
+							auctionRecommendationMap.put(userBidAuctionId, 1);
+						}
 					}
 				}
 			} catch (HgException e) {
